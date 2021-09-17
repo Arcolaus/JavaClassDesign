@@ -23,15 +23,15 @@ public class TestJDBC {
         Statement stat = connection.createStatement();
 
         //执行SQL语句
-        String sql = "DELETE FROM JavaClassDesign WHERE id < 10 ";
-//        for (int i = 0; i < 10; i++) {
-//            String stringFormat = "INSERT INTO JavaClassDesign VALUES (%s,%s,%s)";
-//            String sql = String.format(stringFormat, i, i * 12, i * 14);
-//            System.out.println(sql);
-//            stat.execute(sql);
-//        }
+//        String sql = "DELETE FROM JavaClassDesign WHERE id < 10 ";
+        for (int i = 0; i < 10; i++) {
+            String stringFormat = "INSERT INTO JavaClassDesign VALUES (%s,%s,%s)";
+            String sql = String.format(stringFormat, i, i * 12, i * 14);
+            System.out.println(sql);
+            stat.execute(sql);
+        }
 //        connection.createStatement().execute(sql);
-        stat.execute(sql);
+//        stat.execute(sql);
 //        ResultSet resultSet = stat.executeQuery(sql);
     }
 }
