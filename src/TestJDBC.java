@@ -9,9 +9,9 @@ public class TestJDBC {
         String driver = "com.mysql.cj.jdbc.Driver";
 
         //访问本机的mysql数据库,格式 jdbc:数据库://本地端口3306/数据库名?跨时区参数
-        String url = "jdbc:mysql://localhost:3306/javadesign?serverTimezone=Asia/Shanghai";
-        String username = "root";
-        String password = "db123";
+        String url = "jdbc:mysql://db.vesuo.cn:3306/hy_vesuo_cn?serverTimezone=Asia/Shanghai";
+        String username = "hy";
+        String password = "xhntA5PwRMhybShG";
 
         Class.forName(driver);
 
@@ -24,8 +24,7 @@ public class TestJDBC {
         //执行SQL语句
 //        String sql = "DELETE FROM student WHERE StudentID = 'M'";
         for (int i = 0; i < 10; i++) {
-
-            String stringFormat = "INSERT INTO student VALUES (%s,%s,%s)";
+            String stringFormat = "INSERT INTO JavaClassDesign VALUES (%s,%s,%s)";
             String sql = String.format(stringFormat,i,i*12,i*14);
             System.out.println(sql);
             stat.execute(sql);
