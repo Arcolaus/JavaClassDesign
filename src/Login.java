@@ -1,15 +1,16 @@
 import javax.swing.*;
+import java.awt.*;
 
-public class Login {
-    private JPanel LoginMain;
+public class Login extends JFrame {
     private JLabel ImageShow;
     private ImageIcon ImageShow_Icon;
+    private String username;
+    private String password;
 
     public Login() {
-        LoginMain=new JPanel();
-//        JPanel.setDefaultLocale(a);
-
-        ImageShow_Icon = new ImageIcon("img/Login.Cover.png");
+        ImageShow_Icon = new ImageIcon("img/LoginCover.png");
         ImageShow = new JLabel(ImageShow_Icon);
+        this.add(ImageShow);
+        ImageShow.setVisible(true);
     }
 }

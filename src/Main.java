@@ -1,13 +1,11 @@
 import javax.swing.*;
 
 public class Main {
-    private Login ui;
-    private JFrame MainWindow;
     public static void main(String[] args) {
-
-    }
-    public Main(){
-        MainWidow=new JFrame("title");
-        ui=new Login();
+        Login window=new Login();
+        window.setTitle("chk");
+        window.setBounds(100,100,800,600);
+        window.setVisible(true);
+        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }
