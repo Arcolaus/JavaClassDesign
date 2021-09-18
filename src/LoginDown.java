@@ -12,7 +12,6 @@ public class LoginDown {
         login.initUI();
     }
 
-
     // 1.在类中定义初始化界面的方法；
 
     public void initUI() {
@@ -32,7 +31,7 @@ public class LoginDown {
 
         // 5.实例化元素组件对象，将元素组件对象添加到窗体上（组件添加要在窗体可见之前完成）。
         // 实例化ImageIcon图标类的对象，该对象加载磁盘上的图片文件到内存中，这里的路径要用两个\
-        ImageIcon icon = new ImageIcon("C:\\Users\\SpaceStation\\Desktop\\cover.png");
+        ImageIcon icon = new ImageIcon("img/LoginCover.png");
         // 用标签来接收图片，实例化JLabel标签对象，该对象显示icon图标
         JLabel labIcon = new JLabel(icon);
         //设置标签大小
