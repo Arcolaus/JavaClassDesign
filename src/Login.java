@@ -23,11 +23,12 @@ public class Login extends JFrame {
 
         InfoField=new JPanel();
         InfoField.setLayout(new BorderLayout());
-        JLabel jl1=new JLabel("Username");
+        JLabel jl1=new JLabel("Username1");
+        JLabel jl2=new JLabel("Username2");
         InfoField.add(jl1,BorderLayout.NORTH);
+        InfoField.add(jl2,BorderLayout.CENTER);
         usrfield=new JTextField();
         pwfield=new JPasswordField("Password");
-//        InfoField.add(usrfield,BorderLayout.NORTH);
         InfoField.add(pwfield,BorderLayout.SOUTH);
         this.add(InfoField);
 
