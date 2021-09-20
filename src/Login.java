@@ -1,43 +1,22 @@
 import javax.swing.*;
-import java.awt.*;
 
-public class Login extends JFrame {
-    private JLabel ImageShow;
-    private ImageIcon ImageShow_Icon;
+public class Login {
+    private JPanel root;
+    private JLabel UsernameHint;
+    private JPasswordField password;
+    private JTextField username;
+    private JLabel PasswordHint;
+    private JButton button1;
+    private JRadioButton radioButton1;
+    private JRadioButton radioButton2;
 
-    private JPanel InfoField;
-    private JTextField usrfield;
-    private JPasswordField pwfield;
-
-    private String username;
-    private String password;
-
-    public Login() {
-        this.setLayout(new FlowLayout(0,0,0));
-        ImageShow_Icon = new ImageIcon("img/LoginCover.png");
-        ImageShow_Icon.setImage(ImageShow_Icon.getImage().getScaledInstance(260, 260,Image.SCALE_SMOOTH));
-
-        ImageShow = new JLabel(ImageShow_Icon);
-        ImageShow.setIcon(ImageShow_Icon);
-        this.add(ImageShow);
-
-        InfoField=new JPanel();
-        InfoField.setLayout(new BorderLayout());
-        JLabel jl1=new JLabel("Username");
-        InfoField.add(jl1,BorderLayout.NORTH);
-        usrfield=new JTextField();
-        pwfield=new JPasswordField("Password");
-//        InfoField.add(usrfield,BorderLayout.NORTH);
-        InfoField.add(pwfield,BorderLayout.SOUTH);
-        this.add(InfoField);
-
-
-        this.setTitle("Login");
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(600,300);
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-//        this.setBounds(200,200,600,300);
-        this.setVisible(true);
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Login");
+        frame.setContentPane(new Login().root);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(450,350);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
     }
+
 }

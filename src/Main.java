@@ -1,8 +1,6 @@
-import javax.swing.*;
-
 public class Main {
     public static void main(String[] args) {
-        Login window=new Login();
+        Login_Discard window=new Login_Discard();
 
     }
 }
