@@ -1,4 +1,6 @@
-package java;
+package java.lessonparse;
+
+import java.util.Vector;
 
 public class Lessoninfo {
     private String lessonName;
@@ -11,6 +13,6 @@ public class Lessoninfo {
     // 课程的周数有两种显示方式：
     // 1. x-xx周
     // 2. x,x,x,x
-    private int[] takeWeek;
+    private Vector takeWeek;
 
 }

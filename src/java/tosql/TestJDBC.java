@@ -1,3 +1,5 @@
+package java.tosql;
+
 import java.sql.*;
 
 public class TestJDBC {

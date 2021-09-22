@@ -1,4 +1,4 @@
-package java;
+package java.lessonparse;
 
 public class Studentlesson {
     private String studentId;
