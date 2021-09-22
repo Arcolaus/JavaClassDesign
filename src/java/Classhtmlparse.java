@@ -1,3 +1,5 @@
+package java;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -6,11 +8,11 @@ import org.jsoup.select.Elements;
 import java.io.File;
 import java.io.IOException;
 
-public class Main {
-    public static void main(String[] args) {
+public class Classhtmlparse {
+    Classhtmlparse(String htmlPath) {
         Document doc = null;
         try {
-            doc = Jsoup.parse(new File("./img/schedule.html"), "GBK");
+            doc = Jsoup.parse(new File(htmlPath), "GBK");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -28,6 +30,5 @@ public class Main {
         for (Element element : LessonElements) {
             System.out.println(element.id() + "  " + element.text());
         }
-
     }
 }
