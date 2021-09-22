@@ -1,0 +1,2 @@
+# JavaClassDesign
+利用第三方库Jsoup对下载的html形式的课表进行分析、可视化，并且存储进入数据库
