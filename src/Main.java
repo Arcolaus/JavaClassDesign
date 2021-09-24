@@ -29,10 +29,10 @@ public class Main {
         }
         Elements LessonElements = doc.getElementsByClass("Center");
         for (Element element : LessonElements) {
-//            if (element.text().length() != 0) {
+            if (element.text().length() != 0) {
 //                System.setOut(ps);
                 System.out.println(element.id() + element.text());
-//            }
+            }
         }
     }
 }
