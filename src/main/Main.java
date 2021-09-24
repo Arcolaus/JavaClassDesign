@@ -1,3 +1,5 @@
+package main;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -17,7 +19,7 @@ public class Main {
         Vector<Lessoninfo> t = new Vector<Lessoninfo>();
         Document doc = null;
         try {
-            doc = Jsoup.parse(new File("./img/schedule.html"), "GBK");
+            doc = Jsoup.parse(new File("./img/chk.html"), "GBK");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -28,11 +30,13 @@ public class Main {
             e.printStackTrace();
         }
         Elements LessonElements = doc.getElementsByClass("Center");
+
         for (Element element : LessonElements) {
             if (element.text().length() != 0) {
 //                System.setOut(ps);
                 System.out.println(element.id() + element.text());
             }
         }
+
     }
 }

@@ -1,3 +1,5 @@
+package main;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
@@ -18,7 +20,7 @@ public class LoginDown {
         // 3.在initUI方法中，实例化JFrame类的对象。
         JFrame frame = new JFrame();
         // 4.设置窗体对象的属性值：标题、大小、显示位置、关闭操作、布局、禁止调整大小、可见、...
-        frame.setTitle("Login");// 设置窗体的标题
+        frame.setTitle("main.Login");// 设置窗体的标题
         frame.setSize(400, 650);// 设置窗体的大小，单位是像素
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);// 设置窗体的关闭操作；3表示关闭窗体退出程序；2、1、0
         frame.setLocationRelativeTo(null);// 设置窗体相对于另一个组件的居中位置，参数null表示窗体相对于屏幕的中央位置

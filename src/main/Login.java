@@ -1,3 +1,5 @@
+package main;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -31,7 +33,7 @@ public class Login extends JFrame {
         this.add(InfoField);
 
 
-        this.setTitle("Login");
+        this.setTitle("main.Login");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(600,300);
         this.setLocationRelativeTo(null);

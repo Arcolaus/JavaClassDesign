@@ -1,26 +1,52 @@
-package main.lessonparse;
+package test;
 
 import java.util.ArrayList;
+import java.util.regex.*;
 
-public class Lessoninfo {
+public class splitclasstest {
+    public static void main(String[] args) {
+
+        String str = "<<数据结构>>;3 博知楼508-专业实验中心 刘遵仁 9 实验学时 <<数据结构>>;3 博知楼508-专业实验中心 刘遵仁 10 实验学时 <<数据结构>>;3 博知楼508-专业实验中心 刘遵仁 11 实验学时";
+
+        ArrayList<String> cla = new ArrayList<String>();
+        String pattern = "<<[^<<]*";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(str);
+        int splitPosition = 0;
+        while (m.find()) {
+            String tt = str.substring(splitPosition, m.end());
+            splitPosition = m.end();
+            cla.add(tt);
+        }
+        for(int i=0;i< cla.size();i++)
+        {
+            splitclasstest tmp=new splitclasstest("5-11",cla.get(i));
+            tmp.show();
+            System.out.println();
+        }
+    }
+
     String lessonName;
     int baseTime;
     int combineTime;
     int lessonSerial;
     String roomPlace = "@";
     String teacher;
-    // <<大学物理实验II-1>>;2 博逸楼304 索标,孙光辉,程茸,韩会景,徐洪浩,李世霞 2-8 实验学时 <<面向对象程序设计方法>>;3
-    // 博逸楼516 李英 9-17 实验学时
-    // 博逸楼516 李英 9-17 实验学时
 
-    // 课程的周数有两种显示方式：
-    // 1. x-xx周
-    // 2. x,x,x,x
-    // regex [\u4e00-\u9fa5\w-ⅤⅠ]*
     private ArrayList<Integer> takeWeek;
 
-    public Lessoninfo(String time, String otherInfo) {
-
+    public void show(){
+         System.out.println(this.lessonName);
+         System.out.println(this.baseTime);
+         System.out.println(this.combineTime);
+         System.out.println(this.lessonSerial);
+         System.out.println(this.roomPlace);
+         System.out.println(this.teacher);
+         for(int i=0;i<this.takeWeek.size();i++)
+             System.out.print(this.takeWeek.get(i)+" ");
+         System.out.println();
+    }
+    public splitclasstest(String time, String otherInfo) {
         takeWeek = new ArrayList<Integer>();
         String[] timeinfo = time.split("-");
         String[] lessoninfo = otherInfo.split(";| ");
@@ -58,8 +84,8 @@ public class Lessoninfo {
                 takeWeek.add(i);
 
         } else {
-            if (lessoninfo[4].contains("周")) {
-                String[] week = lessoninfo[4].split("-");
+            if (lessoninfo[4].contains("-")) {
+                String[] week = lessoninfo[4].split("-|周");
 
                 for (int i = Integer.parseInt(week[0]); i <= Integer.parseInt(week[1]); i++)
                     takeWeek.add(i);
@@ -71,6 +97,7 @@ public class Lessoninfo {
                     takeWeek.add(Integer.parseInt(week[i]));
 
             }
+
         }
     }
 }
