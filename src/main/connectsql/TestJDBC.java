@@ -1,4 +1,4 @@
-package main.tosql;
+package main.connectsql;
 
 import java.sql.*;
 

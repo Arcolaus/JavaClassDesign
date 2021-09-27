@@ -2,17 +2,17 @@ package main.lessonparse;
 
 import java.util.ArrayList;
 
-public class Lessoninfo {
-    String lessonName;
-    int baseTime;
-    int combineTime;
-    int lessonSerial;
-    String roomPlace = "@";
-    String teacher;
+public class Lesson {
+    private String lessonName;
+    private int baseTime;
+    private int combineTime;
+    private int lessonSerial;
+    private String roomPlace = "@";
+    private String teacher;
 
     private ArrayList<Integer> takeWeek;
 
-    public Lessoninfo(String time, String otherInfo) {
+    public Lesson(String time, String otherInfo) {
 
         takeWeek = new ArrayList<Integer>();
         String[] timeinfo = time.split("-");
@@ -52,14 +52,12 @@ public class Lessoninfo {
 
         } else {
             if (lessoninfo[4].contains("周")) {
-                String[] week = lessoninfo[4].split("-");
-
+                String[] week = lessoninfo[4].split("-|周");
                 for (int i = Integer.parseInt(week[0]); i <= Integer.parseInt(week[1]); i++)
                     takeWeek.add(i);
 
             } else {
                 String[] week = lessoninfo[4].split(",");
-
                 for (int i = 0; i < week.length; i++)
                     takeWeek.add(Integer.parseInt(week[i]));
 
@@ -67,27 +65,31 @@ public class Lessoninfo {
         }
     }
 
-    String getLessonName() {
+    public String getLessonName() {
         return this.lessonName;
     }
 
-    int getBaseTime() {
+    public int getBaseTime() {
         return this.baseTime;
     }
 
-    int getCombineTime() {
+    public int getCombineTime() {
         return this.combineTime;
     }
 
-    int getLessonSerial() {
+    public int getLessonSerial() {
         return this.lessonSerial;
     }
 
-    String getRoomPlace() {
+    public String getRoomPlace() {
         return this.roomPlace;
     }
 
-    String getTeacher() {
+    public String getTeacher() {
         return this.teacher;
+    }
+
+    public ArrayList<Integer> getTakeWeek(){
+        return this.takeWeek;
     }
 }

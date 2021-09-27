@@ -6,17 +6,15 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import main.lessonparse.Lessoninfo;
+import main.lessonparse.Lesson;
 
-import java.io.PrintStream;
 import java.util.Vector;
 
 public class Main {
     public static void main(String[] args) {
-        Vector<Lessoninfo> t = new Vector<Lessoninfo>();
+        Vector<Lesson> t = new Vector<Lesson>();
         Document doc = null;
         try {
             doc = Jsoup.parse(new File("./img/chk.html"), "GBK");
