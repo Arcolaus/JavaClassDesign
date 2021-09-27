@@ -14,7 +14,7 @@ import java.util.Vector;
 
 public class Main {
     public static void main(String[] args) {
-        Vector<Lesson> t = new Vector<Lesson>();
+        Vector<Lesson> t = new Vector<>();
         Document doc = null;
         try {
             doc = Jsoup.parse(new File("./img/chk.html"), "GBK");
@@ -31,3 +31,10 @@ public class Main {
         }
     }
 }
+
+/**
+ * 2021.9.27
+ * 虽然还不怎么会写正式项目里的注释
+ * 但是在尽力尝试，一方面代码逻辑并不复杂，对象之间的关系也相对简单，甚至目前没有出现过一次继承或者接口的实现
+ * 加油
+ */

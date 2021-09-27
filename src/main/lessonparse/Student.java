@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Student {
     String studentId;
     String studentClass;
-    ArrayList<Lesson> studentLesson;
+    ArrayList<Lesson> studentLessons;
 
     public Student() {
     }
@@ -15,7 +15,12 @@ public class Student {
         this.studentClass = studentclass;
     }
 
-    void addLesson(Lesson addingclesson) {
-        studentLesson.add(addingclesson);
+    void addLesson(Lesson addingLessons) {
+        studentLessons.add(addingLessons);
+    }
+
+    void addLesson(ArrayList<Lesson> addingLessons) {
+        for (Lesson iter : addingLessons)
+            this.studentLessons.add(iter);
     }
 }
