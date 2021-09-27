@@ -23,12 +23,6 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        PrintStream ps = null;
-        try {
-            ps = new PrintStream("d:/info.txt");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
         Elements LessonElements = doc.getElementsByClass("Center");
 
         for (Element element : LessonElements) {
@@ -37,6 +31,5 @@ public class Main {
                 System.out.println(element.id() + element.text());
             }
         }
-
     }
 }

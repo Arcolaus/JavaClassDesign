@@ -9,14 +9,7 @@ public class Lessoninfo {
     int lessonSerial;
     String roomPlace = "@";
     String teacher;
-    // <<大学物理实验II-1>>;2 博逸楼304 索标,孙光辉,程茸,韩会景,徐洪浩,李世霞 2-8 实验学时 <<面向对象程序设计方法>>;3
-    // 博逸楼516 李英 9-17 实验学时
-    // 博逸楼516 李英 9-17 实验学时
 
-    // 课程的周数有两种显示方式：
-    // 1. x-xx周
-    // 2. x,x,x,x
-    // regex [\u4e00-\u9fa5\w-ⅤⅠ]*
     private ArrayList<Integer> takeWeek;
 
     public Lessoninfo(String time, String otherInfo) {
@@ -72,5 +65,29 @@ public class Lessoninfo {
 
             }
         }
+    }
+
+    String getLessonName() {
+        return this.lessonName;
+    }
+
+    int getBaseTime() {
+        return this.baseTime;
+    }
+
+    int getCombineTime() {
+        return this.combineTime;
+    }
+
+    int getLessonSerial() {
+        return this.lessonSerial;
+    }
+
+    String getRoomPlace() {
+        return this.roomPlace;
+    }
+
+    String getTeacher() {
+        return this.teacher;
     }
 }

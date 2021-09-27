@@ -10,17 +10,16 @@ public class splitclasstest {
 
         ArrayList<String> cla = new ArrayList<String>();
         String pattern = "<<[^<<]*";
-        Pattern r = Pattern.compile(pattern);
-        Matcher m = r.matcher(str);
+        Pattern regex = Pattern.compile(pattern);
+        Matcher matcher = regex.matcher(str);
         int splitPosition = 0;
-        while (m.find()) {
-            String tt = str.substring(splitPosition, m.end());
-            splitPosition = m.end();
+        while (matcher.find()) {
+            String tt = str.substring(splitPosition, matcher.end());
+            splitPosition = matcher.end();
             cla.add(tt);
         }
-        for(int i=0;i< cla.size();i++)
-        {
-            splitclasstest tmp=new splitclasstest("5-11",cla.get(i));
+        for (int i = 0; i < cla.size(); i++) {
+            splitclasstest tmp = new splitclasstest("5-11", cla.get(i));
             tmp.show();
             System.out.println();
         }
@@ -35,17 +34,18 @@ public class splitclasstest {
 
     private ArrayList<Integer> takeWeek;
 
-    public void show(){
-         System.out.println(this.lessonName);
-         System.out.println(this.baseTime);
-         System.out.println(this.combineTime);
-         System.out.println(this.lessonSerial);
-         System.out.println(this.roomPlace);
-         System.out.println(this.teacher);
-         for(int i=0;i<this.takeWeek.size();i++)
-             System.out.print(this.takeWeek.get(i)+" ");
-         System.out.println();
+    public void show() {
+        System.out.println(this.lessonName);
+        System.out.println(this.baseTime);
+        System.out.println(this.combineTime);
+        System.out.println(this.lessonSerial);
+        System.out.println(this.roomPlace);
+        System.out.println(this.teacher);
+        for (int i = 0; i < this.takeWeek.size(); i++)
+            System.out.print(this.takeWeek.get(i) + " ");
+        System.out.println();
     }
+
     public splitclasstest(String time, String otherInfo) {
         takeWeek = new ArrayList<Integer>();
         String[] timeinfo = time.split("-");
@@ -100,4 +100,5 @@ public class splitclasstest {
 
         }
     }
+
 }

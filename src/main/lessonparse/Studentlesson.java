@@ -1,6 +1,11 @@
 package main.lessonparse;
 
+import java.util.ArrayList;
+
 public class Studentlesson {
-    private String studentId;
-    private String studentClass;
+    String studentId;
+    String studentClass;
+    ArrayList<Lessoninfo> studentLesson;
+
+
 }
