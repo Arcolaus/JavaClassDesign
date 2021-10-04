@@ -17,11 +17,11 @@ public class Lesson {
         takeWeek = new ArrayList<Integer>();
         String[] timeinfo = time.split("-");
         String[] lessoninfo = otherInfo.split(";| ");
-        // lessonName
+        // 课程名
         lessoninfo[0] = lessoninfo[0].replace("<<", "");
         lessoninfo[0] = lessoninfo[0].replace(">>", "");
 
-        this.lessonName = lessoninfo[0];
+        this.lessonName = lessoninfo[0].replace(" ","");
 
         // 星期
         this.baseTime = Integer.parseInt(timeinfo[0]);

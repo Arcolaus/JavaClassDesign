@@ -10,9 +10,7 @@ public class Main {
     public static void main(String[] args) {
         HtmlParse doc = new HtmlParse("./img/chk.html");
         Student st = new Student(doc.getStudentId(), doc.getStudentClass());
-//        doc.stringSplit();
         st.addLesson(doc.getLessons());
-//        System.out.println(doc.getLessons().size());
 
         ArrayList<Lesson> ak = st.getStudentLessons();
 

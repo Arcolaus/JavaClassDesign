@@ -1,6 +1,7 @@
 package main.lessonparse;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Student {
     String studentId;
@@ -8,11 +9,11 @@ public class Student {
     ArrayList<Lesson> studentLessons;
 
     public Student() {
-        studentLessons=new ArrayList<>();
+        studentLessons = new ArrayList<>();
     }
 
     public Student(String studentid, String studentclass) {
-        studentLessons=new ArrayList<>();
+        studentLessons = new ArrayList<>();
         this.studentId = studentid;
         this.studentClass = studentclass;
     }
@@ -27,7 +28,22 @@ public class Student {
             this.studentLessons.add(iter);
     }
 
-    public ArrayList<Lesson> getStudentLessons(){
+    public void removeLessonByName(String lessonName) {
+        Iterator<Lesson> lessonIterator = studentLessons.iterator();
+        while (lessonIterator.hasNext()) {
+            Lesson singleLesson = lessonIterator.next();
+            if (singleLesson.getLessonName().equals(lessonName))
+                lessonIterator.remove();
+        }
+//        for (int i = 0; i < studentLessons.size(); i++) {
+//            if (studentLessons.get(i).getLessonName().equals(lessonName)) {
+//                studentLessons.remove(i);
+//                i = 0;
+//            }
+//        }
+    }
+
+    public ArrayList<Lesson> getStudentLessons() {
         return studentLessons;
     }
 }
