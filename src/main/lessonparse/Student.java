@@ -35,12 +35,6 @@ public class Student {
             if (singleLesson.getLessonName().equals(lessonName))
                 lessonIterator.remove();
         }
-//        for (int i = 0; i < studentLessons.size(); i++) {
-//            if (studentLessons.get(i).getLessonName().equals(lessonName)) {
-//                studentLessons.remove(i);
-//                i = 0;
-//            }
-//        }
     }
 
     public ArrayList<Lesson> getStudentLessons() {

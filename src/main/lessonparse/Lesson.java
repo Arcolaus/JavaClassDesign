@@ -35,15 +35,19 @@ public class Lesson {
         // 上课教室
         this.roomPlace += lessoninfo[2];
 
-        // 授课老师
-        // 比较幸运的是，一开始写的时候没考虑到一门课有多个老师的情况
-        // 但是多个老师之间使用的是逗号进行分隔，也使得在解析字符串的时候被划到了一个字符串中
+        /*
+         * 授课老师
+         * 比较幸运的是，一开始写的时候没考虑到一门课有多个老师的情况
+         * 但是多个老师之间使用的是逗号进行分隔，也使得在解析字符串的时候被划到了一个字符串中
+         */
         this.teacher = lessoninfo[3];
 
-        // 上课周数的三种表示
-        // 1.单周x-xx
-        // 2.双周x-xx
-        // 3.x,x,xx,xx,xx
+        /*
+         * 上课周数的三种表示
+         * 1.单周x-xx
+         * 2.双周x-xx
+         * 3.x,x,xx,xx,xx
+         */
         if (lessoninfo[4].contains("双周")) {
             String[] week = lessoninfo[4].split("双周|-");
 
@@ -74,23 +78,25 @@ public class Lesson {
     public void modifyName(String name) {
         this.lessonName = name;
     }
+
     public void modifyRoom(String room) {
-        this.roomPlace = "@"+room;
+        this.roomPlace = "@" + room;
     }
 
-    public void modifyTeach(String teacher){
-        this.teacher=teacher;
+    public void modifyTeach(String teacher) {
+        this.teacher = teacher;
     }
 
-    public void modifyTime(String time){
+    public void modifyTime(String time) {
         String[] timeinfo = time.split("-");
         this.baseTime = Integer.parseInt(timeinfo[0]);
         this.combineTime = Integer.parseInt(timeinfo[1]);
     }
 
-    public void modifySerial(int serial){
-        this.lessonSerial=serial;
+    public void modifySerial(int serial) {
+        this.lessonSerial = serial;
     }
+
     public String getLessonName() {
         return this.lessonName;
     }
