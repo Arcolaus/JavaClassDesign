@@ -21,7 +21,7 @@ public class Lesson {
         lessoninfo[0] = lessoninfo[0].replace("<<", "");
         lessoninfo[0] = lessoninfo[0].replace(">>", "");
 
-        this.lessonName = lessoninfo[0].replace(" ","");
+        this.lessonName = lessoninfo[0].replace(" ", "");
 
         // 星期
         this.baseTime = Integer.parseInt(timeinfo[0]);
@@ -71,6 +71,26 @@ public class Lesson {
         }
     }
 
+    public void modifyName(String name) {
+        this.lessonName = name;
+    }
+    public void modifyRoom(String room) {
+        this.roomPlace = "@"+room;
+    }
+
+    public void modifyTeach(String teacher){
+        this.teacher=teacher;
+    }
+
+    public void modifyTime(String time){
+        String[] timeinfo = time.split("-");
+        this.baseTime = Integer.parseInt(timeinfo[0]);
+        this.combineTime = Integer.parseInt(timeinfo[1]);
+    }
+
+    public void modifySerial(int serial){
+        this.lessonSerial=serial;
+    }
     public String getLessonName() {
         return this.lessonName;
     }
