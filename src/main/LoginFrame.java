@@ -57,6 +57,23 @@ public class LoginFrame extends JFrame {
         this.add(passwordInfo);
         this.add(passwordField);
 
+        Font optionFont=new Font("Microsoft Yahei UI",Font.PLAIN,16);
+        // 添加用户选项
+        ButtonGroup opGrop=new ButtonGroup();
+        JRadioButton adminOP=new JRadioButton("管理员");
+        adminOP.setFont(optionFont);
+        adminOP.setBounds(350,200,100,30);
+        adminOP.setOpaque(false);
+        opGrop.add(adminOP);
+        this.add(adminOP);
+        JRadioButton userop=new JRadioButton("学生");
+        userop.setFont(optionFont);
+        userop.setBounds(450,200,100,30);
+        userop.setOpaque(false);
+        opGrop.add(userop);
+        this.add(userop);
+
+
         this.setTitle("登录");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(700, 400);
@@ -64,5 +81,4 @@ public class LoginFrame extends JFrame {
         this.setResizable(false);
         this.setVisible(true);
     }
-
 }
