@@ -20,8 +20,8 @@ public class LoginFrame extends JFrame {
 
     LoginFrame() {
         super();
-        horLineImg = new ImageIcon("C:\\Users\\Gargantua\\Desktop\\chk.gif");
-        verLineImg = new ImageIcon("C:\\Users\\Gargantua\\Desktop\\chk.gif");
+        horLineImg = new ImageIcon("img/LoginFrame/HorizontalLine.png");
+        verLineImg = new ImageIcon("img/LoginFrame/VerticalLine.png");
         horLine1 = new JLabel();
         horLine2 = new JLabel();
         verLine1 = new JLabel();
@@ -67,11 +67,12 @@ public class LoginFrame extends JFrame {
         userInfo.add(passwordField);
         this.add(userInfo, BorderLayout.CENTER);
 
-        this.setTitle("main.Login");
+        this.setTitle("LoginFrame");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(600, 400);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setVisible(true);
     }
+
 }
