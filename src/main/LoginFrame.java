@@ -7,69 +7,59 @@ public class LoginFrame extends JFrame {
     private String username;
     private String password;
 
-    private JLabel horLine1;
-    private JLabel horLine2;
-    private JLabel verLine1;
-    private JLabel verLine2;
-    private ImageIcon horLineImg;
-    private ImageIcon verLineImg;
-
     private JPanel userInfo;
     private JTextField userNameFild;
     private JPasswordField passwordField;
 
+    private JLabel decorateLabel;
+    private ImageIcon decorateImg;
+
     LoginFrame() {
         super();
-        horLineImg = new ImageIcon("img/LoginFrame/HorizontalLine.png");
-        verLineImg = new ImageIcon("img/LoginFrame/VerticalLine.png");
-        horLine1 = new JLabel();
-        horLine2 = new JLabel();
-        verLine1 = new JLabel();
-        verLine2 = new JLabel();
+        this.setLayout(null);
+        this.getContentPane().setBackground(new Color(189, 232, 222));
 
-        horLine1.setIcon(horLineImg);
-        horLine1.setHorizontalAlignment(SwingConstants.HORIZONTAL);
-        horLine2.setIcon(horLineImg);
-        horLine2.setHorizontalAlignment(SwingConstants.HORIZONTAL);
-        verLine1.setIcon(verLineImg);
-        verLine2.setIcon(verLineImg);
+        // 添加左侧图片
+        decorateImg = new ImageIcon("img/LoginFrame/decoration.png");
+        decorateLabel = new JLabel();
+        decorateLabel.setIcon(decorateImg);
+        decorateLabel.setBounds(0, 0, decorateImg.getIconWidth() - 40, decorateImg.getIconHeight());
+//        decorateLabel.setOpaque(true);
+        this.add(decorateLabel);
 
-        this.add(horLine1, BorderLayout.NORTH);
-        this.add(horLine2, BorderLayout.SOUTH);
-        this.add(verLine1, BorderLayout.WEST);
-        this.add(verLine2, BorderLayout.EAST);
+        // 添加美化标题
+        Font titleFont = new Font("Bauhaus 93", Font.PLAIN, 50);
+        JLabel title = new JLabel("Class Vision");
+        title.setFont(titleFont);
+        title.setBounds(350, 0, 300, 80);
+        title.setToolTipText("更好的课表可视化~");
+//        title.setOpaque(true);
+        this.add(title);
 
-        userInfo = new JPanel();
-        userInfo.setLayout(null);
-        Font font = new Font("黑体", Font.PLAIN, 18);
+        Font infoFont=new Font("Microsoft Yahei UI",Font.PLAIN,20);
+        //  添加用户名显示和输入框
+        JLabel usernameInfo=new JLabel("用户名");
+        userNameFild=new JTextField();
+        usernameInfo.setFont(infoFont);
+        usernameInfo.setBounds(350,70,80,80);
+        userNameFild.setFont(infoFont);
+        userNameFild.setBounds(430,95,180,30);
+        this.add(userNameFild);
+        this.add(usernameInfo);
 
-        // 用户名显示
-        JLabel jl1 = new JLabel("用户名：");
-        jl1.setFont(font);
-        jl1.setBounds(50, 30, 100, 30);
 
-        // 用户名填写
-        userNameFild = new JTextField();
-        userNameFild.setBounds(130, 30, 150, 30);
+        //  添加密码输入提示和输入框
+        JLabel passwordInfo=new JLabel("密码");
+        passwordField=new JPasswordField();
+        passwordInfo.setFont(infoFont);
+        passwordInfo.setBounds(350,120,80,80);
+        passwordField.setBounds(430,145,180,30);
+        this.add(passwordInfo);
+        this.add(passwordField);
 
-        // 密码显示
-        JLabel jl3 = new JLabel("密码：");
-        jl3.setFont(font);
-        jl3.setBounds(60, 80, 100, 30);
-
-        // 密码填写
-        passwordField = new JPasswordField();
-        passwordField.setBounds(130, 80, 150, 30);
-
-        userInfo.add(jl1);
-        userInfo.add(userNameFild);
-        userInfo.add(jl3);
-        userInfo.add(passwordField);
-        this.add(userInfo, BorderLayout.CENTER);
-
-        this.setTitle("LoginFrame");
+        this.setTitle("登录");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(600, 400);
+        this.setSize(700, 400);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setVisible(true);
