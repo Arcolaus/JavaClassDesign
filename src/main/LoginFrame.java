@@ -20,7 +20,7 @@ public class LoginFrame extends JFrame implements ActionListener {
     private JRadioButton userop;
     private ButtonGroup opGrop;
 
-    private JButton userLogin;
+    JButton userLogin;
     private JButton exit;
 
     private boolean loginPermission = false;
@@ -38,7 +38,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         this.add(decorateLabel);
 
         // 添加美化标题
-        Font titleFont = new Font("Bauhaus 93", Font.PLAIN, 50);
+        Font titleFont = new Font("Lucida Handwriting", Font.BOLD, 40);
         JLabel title = new JLabel("Class Vision");
         title.setFont(titleFont);
         title.setBounds(350, 0, 300, 80);
@@ -48,7 +48,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         //  添加用户名显示和输入框
         Font infoFont = new Font("Microsoft Yahei UI", Font.PLAIN, 20);
         JLabel usernameInfo = new JLabel("用户名");
-        userNameFild = new JTextField();
+        userNameFild = new JTextField("admin");
         usernameInfo.setFont(infoFont);
         usernameInfo.setBounds(350, 70, 80, 80);
         userNameFild.setFont(infoFont);
@@ -59,7 +59,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 
         //  添加密码输入提示和输入框
         JLabel passwordInfo = new JLabel("密码");
-        passwordField = new JPasswordField();
+        passwordField = new JPasswordField("kkk");
         passwordInfo.setFont(infoFont);
         passwordInfo.setBounds(350, 120, 80, 80);
         passwordField.setBounds(430, 145, 180, 30);
@@ -107,15 +107,17 @@ public class LoginFrame extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == userLogin) {
+
             String inputName = userNameFild.getText();
             String inputpwd = String.valueOf(passwordField.getPassword());
             if (inputName.equals("") || inputpwd.equals(""))
                 JOptionPane.showMessageDialog(this, "用户名和密码不可为空!");
             else {
                 if (password.equals(inputpwd) && username.equals(inputName)) {
-                    System.out.println(username);
-                    System.out.println(password);
+//                    System.out.println("chk");
+                    MainFrame jf = new MainFrame();
                     loginPermission = true;
+                    this.setVisible(false);
                 }else{
                     JOptionPane.showMessageDialog(this, "用户信息错误，请检查用户名和密码，或者用户类型");
                 }
@@ -123,5 +125,9 @@ public class LoginFrame extends JFrame implements ActionListener {
         } else if (e.getSource() == exit) {
             this.dispose();
         }
+    }
+
+    public boolean getPermission(){
+        return loginPermission;
     }
 }
