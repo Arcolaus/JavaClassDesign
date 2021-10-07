@@ -1,6 +1,7 @@
 package main;
 
 import main.lessonparse.Student;
+import main.lessonview.lessonTable;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
@@ -13,7 +14,6 @@ public class MainFrame extends JFrame implements ActionListener {
     final static int ADMIN = 1;
     // 登录及用户信息
     private LoginFrame loginFrame;
-    private boolean loginPermited;
     private int userType;
     private String userId;
 
@@ -47,8 +47,8 @@ public class MainFrame extends JFrame implements ActionListener {
         // 添加右侧信息功能区
         infoField = new JPanel();
         infoField.setLayout(null);
-        infoField.setBounds(0, 5, 130, 520);
-        infoField.setBackground(new Color(210, 209, 209, 255));
+        infoField.setBounds(0, 0, 130, 420);
+        infoField.setBackground(new Color(210, 209, 209));
 
         // 添加右上角头像
         profilePhoto = new JLabel();
@@ -71,46 +71,59 @@ public class MainFrame extends JFrame implements ActionListener {
         userInfo.setBounds(15, 105, 100, 40);
         infoField.add(userInfo);
 
-        // 添加右侧按钮
+        // 添加右侧按钮板
         Font buttonFont = new Font("黑体", Font.PLAIN, 16);
         funcField = new JPanel();
         funcField.setOpaque(false);
         funcField.setLayout(new GridLayout(4, 1, 0, 5));
         funcField.setBounds(15, 200, 100, 140);
-        funcExit = new JButton("退出");
+
+        // 添加课程按钮
         funcAddLesson = new JButton("添加课程");
-        funcModifyLesson = new JButton("修改课程");
-        funcDeleteLesson = new JButton("删除课程");
-
         funcAddLesson.setFont(buttonFont);
-        funcDeleteLesson.setFont(buttonFont);
-        funcExit.setFont(buttonFont);
-        funcModifyLesson.setFont(buttonFont);
-
         funcAddLesson.setBackground(Color.GREEN);
-        funcModifyLesson.setBackground(Color.ORANGE);
-        funcDeleteLesson.setBackground(Color.RED);
-        funcExit.setBackground(Color.WHITE);
         funcAddLesson.setUI(new BasicButtonUI());
-        funcModifyLesson.setUI(new BasicButtonUI());
-        funcDeleteLesson.setUI(new BasicButtonUI());
-        funcExit.setUI(new BasicButtonUI());
-
         funcField.add(funcAddLesson);
-        funcField.add(funcModifyLesson);
-        funcField.add(funcDeleteLesson);
-        funcField.add(funcExit);
-        this.add(funcField);
 
+        // 修改课程按钮
+        funcModifyLesson = new JButton("修改课程");
+        funcModifyLesson.setFont(buttonFont);
+        funcModifyLesson.setBackground(Color.ORANGE);
+        funcModifyLesson.setUI(new BasicButtonUI());
+        funcField.add(funcModifyLesson);
+
+        // 删除课程按钮
+        funcDeleteLesson = new JButton("删除课程");
+        funcDeleteLesson.setFont(buttonFont);
+        funcDeleteLesson.setBackground(Color.RED);
+        funcDeleteLesson.setUI(new BasicButtonUI());
+        funcField.add(funcDeleteLesson);
+
+        // 退出按钮
+        funcExit = new JButton("退出");
+        funcExit.setFont(buttonFont);
+        funcExit.setBackground(Color.WHITE);
+        funcExit.setUI(new BasicButtonUI());
+        funcExit.addActionListener(this);
+        funcField.add(funcExit);
+
+        // 添加课表
+        lessonTable table=new lessonTable(student);
+        JScrollPane t=new JScrollPane(table);
+//        t=new JScrollPane();
+        t.setBounds(140,5,1280,850);
+        this.add(t);
+
+        this.add(funcField);
         this.add(infoField);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(1024, 768);
+        this.setSize(1440, 900);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent op) {
 
 //        if (loginFrame.getPermission()) {
         this.setVisible(true);
@@ -119,5 +132,7 @@ public class MainFrame extends JFrame implements ActionListener {
 //            JOptionPane.showMessageDialog(this, "用户信息错误，请检查用户名和密码，或者用户类型");
 //        }
 
+        if (op.getSource() == funcExit)
+            this.dispose();
     }
 }

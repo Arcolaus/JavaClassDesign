@@ -31,6 +31,6 @@
 
 创建一个HtmlParse类时，向构造函数传入html文档的路径，在构造函数中便完成解析，把解析出的所有Lesson信息存储在成员变量中
 
-HtmlParse类可通过getLessons()函数，返回一个 *用getLessons()函数返回一个ArrayList<Lesson>，包含html中的所有课程。接着可以用Student类的addLesson()函数，向一个Student类添加课程也就是说，在添加课程这一步中，不会直接调用Lesson类的任何一个函数或成员变量
+HtmlParse类可通过getLessons()函数，返回一个ArrayList<Lesson>，包含html中的所有课程。接着可以用Student类的addLesson()函数，向一个Student类添加课程也就是说，在添加课程这一步中，不会直接调用Lesson类的任何一个函数或成员变量
 
 只有在需要遍历一个Lesson的所有信息时，才需要调用Lesson的成员函数
