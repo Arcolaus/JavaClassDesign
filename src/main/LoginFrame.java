@@ -33,7 +33,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         this.getContentPane().setBackground(new Color(189, 232, 222));
 
         // 添加左侧图片
-        decorateImg = new ImageIcon("img/LoginFrame/decoration.png");
+        decorateImg = new ImageIcon("src/img/LoginFrame/decoration.png");
         JLabel decorateLabel = new JLabel();
         decorateLabel.setIcon(decorateImg);
         decorateLabel.setBounds(0, 0, decorateImg.getIconWidth() - 40, decorateImg.getIconHeight());

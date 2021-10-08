@@ -52,11 +52,11 @@ public class MainFrame extends JFrame implements ActionListener {
 
         // 添加右上角头像
         profilePhoto = new JLabel();
-        imgPhoto = new ImageIcon("img/MainFrame/otherPhoto.png");
+        imgPhoto = new ImageIcon("src/img/MainFrame/otherPhoto.png");
         if (userType == STUDENT)
-            imgPhoto = new ImageIcon("img/MainFrame/studentPhoto.png");
+            imgPhoto = new ImageIcon("src/img/MainFrame/studentPhoto.png");
         else if (userType == ADMIN)
-            imgPhoto = new ImageIcon("img/MainFrame/adminPhoto.png");
+            imgPhoto = new ImageIcon("src/img/MainFrame/adminPhoto.png");
         imgPhoto.setImage(imgPhoto.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
         profilePhoto.setIcon(imgPhoto);
         profilePhoto.setBounds(15, 0, 100, 100);
