@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        HtmlParse doc = new HtmlParse("./img/chk.html");
+        HtmlParse doc = new HtmlParse("src/img/chk.html");
         Student st = new Student(doc.getStudentId(), doc.getStudentClass());
         st.addLesson(doc.getLessons());
 
