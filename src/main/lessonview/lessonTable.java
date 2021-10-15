@@ -48,7 +48,7 @@ public class lessonTable extends JTable {
             String info_2 = it.getRoomPlace();
             String info_3 = it.getTeacher();
             String allInfo = "<html><body>" + info_1 + "<br>" + info_2 + "<br>" + info_3;
-            initContent[combineTime2Row][dayTime2Col] += allInfo;
+            initContent[combineTime2Row][dayTime2Col] = allInfo;
         }
 
         // 设置内容
