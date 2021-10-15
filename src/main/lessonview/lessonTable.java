@@ -9,39 +9,40 @@ import java.awt.*;
 
 public class lessonTable extends JTable {
     private static final Object[] tableHead = {" ", "周一", "周二", "周三", "周四", "周五", "周六", "周日"};
-    private static Object[][] initContent = {
-            {" 1", "", "", "", "", "", "", ""},
-            {" 2", "", "", "", "", "", "", ""},
-            {" 3", "", "", "", "", "", "", ""},
-            {" 4", "", "", "", "", "", "", ""},
-            {"T1", "", "", "", "", "", "", ""},
-            {" 5", "", "", "", "", "", "", ""},
-            {" 6", "", "", "", "", "", "", ""},
-            {" 7", "", "", "", "", "", "", ""},
-            {" 8", "", "", "", "", "", "", ""},
-            {"T2", "", "", "", "", "", "", ""},
-            {" 9", "", "", "", "", "", "", ""},
-            {"10", "", "", "", "", "", "", ""},
-            {"11", "", "", "", "", "", "", ""},
-    };
+    private static Object[][] initContent;
 
     public lessonTable(Student student, int weekTime) {
-        int maxRow=0,minRow=0;
-        int maxCol=0,minCol=0;
+        int maxRow = 0, minRow = 0;
+        int maxCol = 0, minCol = 0;
+        initContent = new Object[][]{
+                {" 1", "", "", "", "", "", "", ""},
+                {" 2", "", "", "", "", "", "", ""},
+                {" 3", "", "", "", "", "", "", ""},
+                {" 4", "", "", "", "", "", "", ""},
+                {"T1", "", "", "", "", "", "", ""},
+                {" 5", "", "", "", "", "", "", ""},
+                {" 6", "", "", "", "", "", "", ""},
+                {" 7", "", "", "", "", "", "", ""},
+                {" 8", "", "", "", "", "", "", ""},
+                {"T2", "", "", "", "", "", "", ""},
+                {" 9", "", "", "", "", "", "", ""},
+                {"10", "", "", "", "", "", "", ""},
+                {"11", "", "", "", "", "", "", ""},
+        };
         for (Lesson it : student.getStudentLessons()) {
             if (!it.getTakeWeek().contains(weekTime))
                 continue;
 
             // 确定处于哪一格
             int dayTime2Col = it.getDayTime();
-            int combineTime2Row = it.getCombineTime()-1;
+            int combineTime2Row = it.getCombineTime() - 1;
 
             //[0,12]
-            maxRow=Math.max(maxRow,dayTime2Col);
-            minRow=Math.min(minRow,dayTime2Col);
+            maxRow = Math.max(maxRow, dayTime2Col);
+            minRow = Math.min(minRow, dayTime2Col);
             //[0,7]
-            maxCol=Math.max(maxCol,combineTime2Row);
-            minCol=Math.min(minCol,combineTime2Row);
+            maxCol = Math.max(maxCol, combineTime2Row);
+            minCol = Math.min(minCol, combineTime2Row);
 
             // 格内显示的信息
             String info_1 = it.getLessonName();
@@ -57,7 +58,7 @@ public class lessonTable extends JTable {
         // 添加渲染器
         DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
         tcr.setHorizontalAlignment(JLabel.CENTER);
-        this.setDefaultRenderer(Object.class,tcr);
+        this.setDefaultRenderer(Object.class, tcr);
 
         // 添加内容
         this.setModel(t);
