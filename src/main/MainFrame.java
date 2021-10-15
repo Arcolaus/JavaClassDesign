@@ -112,6 +112,7 @@ public class MainFrame extends JFrame implements ActionListener {
         // 添加课表
         HtmlParse doc = new HtmlParse("src/img/chk.html");
         student = new Student(doc.getStudentId(), doc.getStudentClass());
+        student.addLesson(doc.getLessons());
 //        student=new Student();
         lessonTable table=new lessonTable(student,1);
         JScrollPane t=new JScrollPane(table);
