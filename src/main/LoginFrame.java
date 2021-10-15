@@ -3,6 +3,7 @@ package main;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -125,11 +126,13 @@ public class LoginFrame extends JFrame implements ActionListener {
         this.add(userop);
 
         // 添加功能按钮
-        Font funcFont = new Font("Microsoft Yahei UI", Font.PLAIN, 10);
+        Font funcFont = new Font("Microsoft Yahei UI", Font.BOLD, 12);
         userLogin = new JButton("登录");
         exit = new JButton("退出");
-        userLogin.setBounds(400, 250, 70, 30);
-        exit.setBounds(560, 250, 70, 30);
+        userLogin.setBounds(420, 250, 70, 30);
+        userLogin.setUI(new BasicButtonUI());
+        exit.setBounds(540, 250, 70, 30);
+        exit.setUI(new BasicButtonUI());
         userLogin.setFont(funcFont);
         exit.setFont(funcFont);
         userLogin.addActionListener(this);

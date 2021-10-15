@@ -1,5 +1,6 @@
 package main;
 
+import main.lessonparse.HtmlParse;
 import main.lessonparse.Student;
 import main.lessonview.lessonTable;
 
@@ -30,9 +31,10 @@ public class MainFrame extends JFrame implements ActionListener {
     private JButton funcModifyLesson;
     private JButton funcDeleteLesson;
 
-
     // 学生信息
     private Student student;
+
+    // 课表内容区
 
     public static void main(String[] args) {
         MainFrame mainFrame = new MainFrame();
@@ -108,7 +110,10 @@ public class MainFrame extends JFrame implements ActionListener {
         funcField.add(funcExit);
 
         // 添加课表
-        lessonTable table=new lessonTable(student);
+        HtmlParse doc = new HtmlParse("src/img/chk.html");
+        student = new Student(doc.getStudentId(), doc.getStudentClass());
+//        student=new Student();
+        lessonTable table=new lessonTable(student,1);
         JScrollPane t=new JScrollPane(table);
 //        t=new JScrollPane();
         t.setBounds(140,5,1280,850);
@@ -124,7 +129,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent op) {
-
+        // 登录允许
 //        if (loginFrame.getPermission()) {
         this.setVisible(true);
         loginFrame.dispose();

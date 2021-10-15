@@ -17,8 +17,11 @@ public class Main {
         for (Lesson it : ak) {
             System.out.println("+++++++++");
             System.out.println(it.getLessonName());
+            System.out.println(it.getDayTime()+" "+it.getCombineTime());
             System.out.println(it.getRoomPlace());
             System.out.println(it.getTeacher());
+            for(int i:it.getTakeWeek())
+                System.out.print(i+" ");
             System.out.println("");
         }
     }

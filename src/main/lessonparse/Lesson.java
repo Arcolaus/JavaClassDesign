@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Lesson {
     private String lessonName;
-    private int baseTime;
+    private int dayTime;
     private int combineTime;
     private int lessonSerial;
     private String roomPlace = "@";
@@ -24,7 +24,7 @@ public class Lesson {
         this.lessonName = lessoninfo[0].replace(" ", "");
 
         // 星期
-        this.baseTime = Integer.parseInt(timeinfo[0]);
+        this.dayTime = Integer.parseInt(timeinfo[0]);
 
         // 小节
         this.combineTime = Integer.parseInt(timeinfo[1]);
@@ -89,7 +89,7 @@ public class Lesson {
 
     public void modifyTime(String time) {
         String[] timeinfo = time.split("-");
-        this.baseTime = Integer.parseInt(timeinfo[0]);
+        this.dayTime = Integer.parseInt(timeinfo[0]);
         this.combineTime = Integer.parseInt(timeinfo[1]);
     }
 
@@ -101,8 +101,8 @@ public class Lesson {
         return this.lessonName;
     }
 
-    public int getBaseTime() {
-        return this.baseTime;
+    public int getDayTime() {
+        return this.dayTime;
     }
 
     public int getCombineTime() {
