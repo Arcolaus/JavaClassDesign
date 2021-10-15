@@ -5,14 +5,21 @@ import main.lessonparse.Student;
 import main.lessonview.lessonTable;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class MainFrame extends JFrame implements ActionListener {
     final static int STUDENT = 0;
     final static int ADMIN = 1;
+
+    // 选择HTML文件导入
+    private JFileChooser importHtml;
+    private File htmlDoc;
+    private FileNameExtensionFilter htmlFilter;
     // 登录及用户信息
     private LoginFrame loginFrame;
     private int userType;
@@ -37,8 +44,10 @@ public class MainFrame extends JFrame implements ActionListener {
 
     // 学生信息
     private Student student;
-    private int currentWeek=1;
+    private int currentWeek = 1;
     private JLabel showCurrentWeek;
+
+
     // 课表内容区
 
     public static void main(String[] args) {
@@ -107,15 +116,16 @@ public class MainFrame extends JFrame implements ActionListener {
         funcDeleteLesson.setUI(new BasicButtonUI());
         funcField.add(funcDeleteLesson);
 
-        // 导入按钮
-        funcImportHtml=new JButton("导入课程");
+        // 导入
+        funcImportHtml = new JButton("导入课程");
         funcImportHtml.setFont(buttonFont);
         funcImportHtml.setBackground(Color.CYAN);
         funcImportHtml.setUI(new BasicButtonUI());
+        funcImportHtml.addActionListener(this);
         funcField.add(funcImportHtml);
 
-        // 上传按钮
-        funcUploadDB=new JButton("上传到云");
+        // 上传
+        funcUploadDB = new JButton("上传到云");
         funcUploadDB.setFont(buttonFont);
         funcUploadDB.setBackground(Color.CYAN);
         funcUploadDB.setUI(new BasicButtonUI());
@@ -130,32 +140,33 @@ public class MainFrame extends JFrame implements ActionListener {
         funcField.add(funcExit);
 
         // 添加课表
-        HtmlParse doc = new HtmlParse("src/img/chk.html");
-        student = new Student(doc.getStudentId(), doc.getStudentClass());
-        student.addLesson(doc.getLessons());
-        lessonTable table=new lessonTable(student,currentWeek);
-        JScrollPane t=new JScrollPane(table);
-        t.setBounds(140,5,1280,850);
+        importHtml = new JFileChooser();
+//        HtmlParse doc = new HtmlParse("src/img/chk.html");
+//        student = new Student(doc.getStudentId(), doc.getStudentClass());
+//        student.addLesson(doc.getLessons());
+        lessonTable table = new lessonTable();
+        JScrollPane t = new JScrollPane(table);
+        t.setBounds(140, 5, 1280, 850);
         this.add(t);
 
         // 当前周数显示
-        showCurrentWeek=new JLabel("第"+Integer.toString(currentWeek)+"周");
+        showCurrentWeek = new JLabel("第" + Integer.toString(currentWeek) + "周");
         showCurrentWeek.setFont(new Font("Microsoft Yahei UI", Font.BOLD, 18));
-        showCurrentWeek.setBounds(40,430,90,30);
+        showCurrentWeek.setBounds(40, 430, 90, 30);
         this.add(showCurrentWeek);
 
         // 上一周按钮
-        preWeek=new JButton("上一周");
+        preWeek = new JButton("上一周");
         preWeek.setFont(buttonFont);
         preWeek.addActionListener(this);
-        preWeek.setBounds(20,470,90,30);
+        preWeek.setBounds(20, 470, 90, 30);
         this.add(preWeek);
 
         // 下一周按钮
-        nextWeek=new JButton("下一周");
+        nextWeek = new JButton("下一周");
         nextWeek.setFont(buttonFont);
         nextWeek.addActionListener(this);
-        nextWeek.setBounds(20,505,90,30);
+        nextWeek.setBounds(20, 505, 90, 30);
         this.add(nextWeek);
 
         this.add(funcField);
@@ -178,23 +189,38 @@ public class MainFrame extends JFrame implements ActionListener {
 
         if (op.getSource() == funcExit)
             this.dispose();
-        if(op.getSource()==preWeek){
-            if(currentWeek>1)
+        if (op.getSource() == preWeek) {
+            if (currentWeek > 1)
                 currentWeek--;
-            showCurrentWeek.setText("第"+Integer.toString(currentWeek)+"周");
-            lessonTable table=new lessonTable(student,currentWeek);
-            JScrollPane t=new JScrollPane(table);
-            t.setBounds(140,5,1280,850);
+            showCurrentWeek.setText("第" + Integer.toString(currentWeek) + "周");
+            lessonTable table = new lessonTable(student, currentWeek);
+            JScrollPane t = new JScrollPane(table);
+            t.setBounds(140, 5, 1280, 850);
             this.add(t);
         }
-        if(op.getSource()==nextWeek){
-            if(currentWeek<20)
+        if (op.getSource() == nextWeek) {
+            if (currentWeek < 20)
                 currentWeek++;
-            showCurrentWeek.setText("第"+Integer.toString(currentWeek)+"周");
-            lessonTable table=new lessonTable(student,currentWeek);
-            JScrollPane t=new JScrollPane(table);
-            t.setBounds(140,5,1280,850);
+            showCurrentWeek.setText("第" + Integer.toString(currentWeek) + "周");
+            lessonTable table = new lessonTable(student, currentWeek);
+            JScrollPane t = new JScrollPane(table);
+            t.setBounds(140, 5, 1280, 850);
             this.add(t);
+        }
+        if (op.getSource() == funcImportHtml) {
+            htmlFilter=new FileNameExtensionFilter("HTML文件","html");
+            importHtml.setFileFilter(htmlFilter);
+            importHtml.setCurrentDirectory(new File("./"));
+            int val=importHtml.showOpenDialog(this);
+            if (val==JFileChooser.APPROVE_OPTION) {
+                HtmlParse k = new HtmlParse(importHtml.getSelectedFile().getAbsolutePath());
+                student = new Student(k.getStudentId(), k.getStudentClass());
+                student.addLesson(k.getLessons());
+                lessonTable table = new lessonTable(student, currentWeek);
+                JScrollPane t = new JScrollPane(table);
+                t.setBounds(140, 5, 1280, 850);
+                this.add(t);
+            }
         }
     }
 }

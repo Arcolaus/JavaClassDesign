@@ -11,6 +11,42 @@ public class lessonTable extends JTable {
     private static final Object[] tableHead = {" ", "周一", "周二", "周三", "周四", "周五", "周六", "周日"};
     private static Object[][] initContent;
 
+    public lessonTable() {
+        // 空课表初始化
+        initContent = new Object[][]{
+                {" 1", "", "", "", "", "", "", ""},
+                {" 2", "", "", "", "", "", "", ""},
+                {" 3", "", "", "", "", "", "", ""},
+                {" 4", "", "", "", "", "", "", ""},
+                {"T1", "", "", "", "", "", "", ""},
+                {" 5", "", "", "", "", "", "", ""},
+                {" 6", "", "", "", "", "", "", ""},
+                {" 7", "", "", "", "", "", "", ""},
+                {" 8", "", "", "", "", "", "", ""},
+                {"T2", "", "", "", "", "", "", ""},
+                {" 9", "", "", "", "", "", "", ""},
+                {"10", "", "", "", "", "", "", ""},
+                {"11", "", "", "", "", "", "", ""},
+        };
+        // 设置内容
+        TableModel t = new DefaultTableModel(initContent, tableHead);
+
+        // 添加渲染器
+        DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+        tcr.setHorizontalAlignment(JLabel.CENTER);
+        this.setDefaultRenderer(Object.class, tcr);
+
+        // 添加内容
+        this.setModel(t);
+
+        this.setRowHeight(65);
+
+        // 设置第一列列宽，用于显示课程节数
+        TableColumnModel columnModel1 = this.getColumnModel();
+        TableColumn firstColumn = columnModel1.getColumn(0);
+        firstColumn.setMaxWidth(20);
+    }
+
     public lessonTable(Student student, int weekTime) {
         int maxRow = 0, minRow = 0;
         int maxCol = 0, minCol = 0;
