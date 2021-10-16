@@ -20,6 +20,7 @@ public class MainFrame extends JFrame implements ActionListener {
     private JFileChooser importHtml;
     private File htmlDoc;
     private FileNameExtensionFilter htmlFilter;
+
     // 登录及用户信息
     private LoginFrame loginFrame;
     private int userType;
@@ -44,11 +45,12 @@ public class MainFrame extends JFrame implements ActionListener {
 
     // 学生信息
     private Student student;
-    private int currentWeek = 1;
-    private JLabel showCurrentWeek;
 
 
     // 课表内容区
+    private int currentWeek = 1;
+    private JLabel showCurrentWeek;
+    private JScrollPane tableShow;
 
     public static void main(String[] args) {
         MainFrame mainFrame = new MainFrame();
@@ -100,6 +102,7 @@ public class MainFrame extends JFrame implements ActionListener {
         funcAddLesson.setFont(buttonFont);
         funcAddLesson.setBackground(Color.GREEN);
         funcAddLesson.setUI(new BasicButtonUI());
+        funcAddLesson.addActionListener(this);
         funcField.add(funcAddLesson);
 
         // 修改课程按钮
@@ -107,6 +110,7 @@ public class MainFrame extends JFrame implements ActionListener {
         funcModifyLesson.setFont(buttonFont);
         funcModifyLesson.setBackground(Color.ORANGE);
         funcModifyLesson.setUI(new BasicButtonUI());
+        funcModifyLesson.addActionListener(this);
         funcField.add(funcModifyLesson);
 
         // 删除课程按钮
@@ -114,6 +118,7 @@ public class MainFrame extends JFrame implements ActionListener {
         funcDeleteLesson.setFont(buttonFont);
         funcDeleteLesson.setBackground(Color.PINK);
         funcDeleteLesson.setUI(new BasicButtonUI());
+        funcDeleteLesson.addActionListener(this);
         funcField.add(funcDeleteLesson);
 
         // 导入
@@ -145,9 +150,9 @@ public class MainFrame extends JFrame implements ActionListener {
 //        student = new Student(doc.getStudentId(), doc.getStudentClass());
 //        student.addLesson(doc.getLessons());
         lessonTable table = new lessonTable();
-        JScrollPane t = new JScrollPane(table);
-        t.setBounds(140, 5, 1280, 850);
-        this.add(t);
+        tableShow = new JScrollPane(table);
+        tableShow.setBounds(140, 5, 1280, 850);
+        this.add(tableShow);
 
         // 当前周数显示
         showCurrentWeek = new JLabel("第" + Integer.toString(currentWeek) + "周");
@@ -189,33 +194,37 @@ public class MainFrame extends JFrame implements ActionListener {
 
         if (op.getSource() == funcExit)
             this.dispose();
+
         if (op.getSource() == preWeek) {
             if (currentWeek > 1)
                 currentWeek--;
             showCurrentWeek.setText("第" + Integer.toString(currentWeek) + "周");
             lessonTable table = new lessonTable(student, currentWeek);
-            JScrollPane t = new JScrollPane(table);
-            t.setBounds(140, 5, 1280, 850);
-            this.add(t);
+            tableShow = new JScrollPane(table);
+            tableShow.setBounds(140, 5, 1280, 850);
+            this.add(tableShow);
         }
         if (op.getSource() == nextWeek) {
             if (currentWeek < 20)
                 currentWeek++;
             showCurrentWeek.setText("第" + Integer.toString(currentWeek) + "周");
             lessonTable table = new lessonTable(student, currentWeek);
-            JScrollPane t = new JScrollPane(table);
-            t.setBounds(140, 5, 1280, 850);
-            this.add(t);
+            tableShow = new JScrollPane(table);
+            tableShow.setBounds(140, 5, 1280, 850);
+            this.add(tableShow);
         }
+
         if (op.getSource() == funcImportHtml) {
-            htmlFilter=new FileNameExtensionFilter("HTML文件","html");
+            this.currentWeek = 1;
+            htmlFilter = new FileNameExtensionFilter("HTML文件", "html");
             importHtml.setFileFilter(htmlFilter);
             importHtml.setCurrentDirectory(new File("./"));
-            int val=importHtml.showOpenDialog(this);
-            if (val==JFileChooser.APPROVE_OPTION) {
-                HtmlParse k = new HtmlParse(importHtml.getSelectedFile().getAbsolutePath());
-                student = new Student(k.getStudentId(), k.getStudentClass());
-                student.addLesson(k.getLessons());
+            int val = importHtml.showOpenDialog(this);
+
+            if (val == JFileChooser.APPROVE_OPTION) {
+                HtmlParse doc = new HtmlParse(importHtml.getSelectedFile().getAbsolutePath());
+                student = new Student(doc.getStudentId(), doc.getStudentClass());
+                student.addLesson(doc.getLessons());
                 lessonTable table = new lessonTable(student, currentWeek);
                 JScrollPane t = new JScrollPane(table);
                 t.setBounds(140, 5, 1280, 850);

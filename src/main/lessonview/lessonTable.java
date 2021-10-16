@@ -11,6 +11,7 @@ public class lessonTable extends JTable {
     private static final Object[] tableHead = {" ", "周一", "周二", "周三", "周四", "周五", "周六", "周日"};
     private static Object[][] initContent;
 
+    private TableModel tableModel;
     public lessonTable() {
         // 空课表初始化
         initContent = new Object[][]{
@@ -29,7 +30,7 @@ public class lessonTable extends JTable {
                 {"11", "", "", "", "", "", "", ""},
         };
         // 设置内容
-        TableModel t = new DefaultTableModel(initContent, tableHead);
+        tableModel = new DefaultTableModel(initContent, tableHead);
 
         // 添加渲染器
         DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
@@ -37,9 +38,13 @@ public class lessonTable extends JTable {
         this.setDefaultRenderer(Object.class, tcr);
 
         // 添加内容
-        this.setModel(t);
+        this.setModel(tableModel);
 
+        // 设置行高
         this.setRowHeight(65);
+
+        // 设置不可编辑
+        this.setEnabled(false);
 
         // 设置第一列列宽，用于显示课程节数
         TableColumnModel columnModel1 = this.getColumnModel();
@@ -89,7 +94,7 @@ public class lessonTable extends JTable {
         }
 
         // 设置内容
-        TableModel t = new DefaultTableModel(initContent, tableHead);
+        tableModel = new DefaultTableModel(initContent, tableHead);
 
         // 添加渲染器
         DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
@@ -97,8 +102,12 @@ public class lessonTable extends JTable {
         this.setDefaultRenderer(Object.class, tcr);
 
         // 添加内容
-        this.setModel(t);
+        this.setModel(tableModel);
 
+        // 设置不可编辑
+        this.setEnabled(false);
+
+        // 设置行高
         this.setRowHeight(65);
 
         // 设置第一列列宽，用于显示课程节数
