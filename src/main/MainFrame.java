@@ -231,7 +231,6 @@ public class MainFrame extends JFrame implements ActionListener {
                 this.add(tableShow);
             }
         }
-        //TODO
         if (op.getSource() == funcAddLesson) {
             this.currentWeek = 1;
             showCurrentWeek.setText("第" + Integer.toString(currentWeek) + "周");
@@ -273,7 +272,16 @@ public class MainFrame extends JFrame implements ActionListener {
                 this.add(tableShow);
             }
         }
-        //TODO
+
+        if(op.getSource()==funcModifyLesson){
+            String inputLessonName = JOptionPane.showInputDialog(this, "请输入要删除的课程名", "");
+            if(!inputLessonName.equals("")){
+                this.currentWeek = 1;
+                showCurrentWeek.setText("第" + Integer.toString(currentWeek) + "周");
+
+            }
+        }
+
         if (op.getSource() == funcDeleteLesson) {
             this.currentWeek = 1;
             showCurrentWeek.setText("第" + Integer.toString(currentWeek) + "周");
