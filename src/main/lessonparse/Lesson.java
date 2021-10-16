@@ -13,7 +13,6 @@ public class Lesson {
     private ArrayList<Integer> takeWeek;
 
     public Lesson(String time, String otherInfo) {
-
         takeWeek = new ArrayList<Integer>();
         String[] timeinfo = time.split("-");
         String[] lessoninfo = otherInfo.split(";| ");

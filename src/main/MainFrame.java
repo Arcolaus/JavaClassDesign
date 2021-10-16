@@ -1,6 +1,7 @@
 package main;
 
 import main.lessonparse.HtmlParse;
+import main.lessonparse.Lesson;
 import main.lessonparse.Student;
 import main.lessonview.lessonTable;
 
@@ -145,10 +146,8 @@ public class MainFrame extends JFrame implements ActionListener {
         funcField.add(funcExit);
 
         // 添加课表
+        student=new Student();
         importHtml = new JFileChooser();
-//        HtmlParse doc = new HtmlParse("src/img/chk.html");
-//        student = new Student(doc.getStudentId(), doc.getStudentClass());
-//        student.addLesson(doc.getLessons());
         lessonTable table = new lessonTable();
         tableShow = new JScrollPane(table);
         tableShow.setBounds(140, 5, 1280, 850);
@@ -215,21 +214,75 @@ public class MainFrame extends JFrame implements ActionListener {
         }
 
         if (op.getSource() == funcImportHtml) {
-            this.currentWeek = 1;
             htmlFilter = new FileNameExtensionFilter("HTML文件", "html");
             importHtml.setFileFilter(htmlFilter);
             importHtml.setCurrentDirectory(new File("./"));
             int val = importHtml.showOpenDialog(this);
 
             if (val == JFileChooser.APPROVE_OPTION) {
+                this.currentWeek = 1;
+                showCurrentWeek.setText("第" + Integer.toString(currentWeek) + "周");
                 HtmlParse doc = new HtmlParse(importHtml.getSelectedFile().getAbsolutePath());
                 student = new Student(doc.getStudentId(), doc.getStudentClass());
                 student.addLesson(doc.getLessons());
                 lessonTable table = new lessonTable(student, currentWeek);
-                JScrollPane t = new JScrollPane(table);
-                t.setBounds(140, 5, 1280, 850);
-                this.add(t);
+                tableShow = new JScrollPane(table);
+                tableShow.setBounds(140, 5, 1280, 850);
+                this.add(tableShow);
             }
+        }
+        //TODO
+        if (op.getSource() == funcAddLesson) {
+            this.currentWeek = 1;
+            showCurrentWeek.setText("第" + Integer.toString(currentWeek) + "周");
+            JTextField timeField = new JTextField("1-1", 3);
+            JTextField nameField = new JTextField("大学生素养", 7);
+            JTextField serialField = new JTextField("1", 5);
+            JTextField roomField = new JTextField("博知000", 5);
+            JTextField teacherField = new JTextField("教师", 5);
+            JTextField weekField = new JTextField("单周2-16", 5);
+            JTextField typeField = new JTextField("讲课学时", 5);
+
+
+            JPanel myPanel = new JPanel();
+            myPanel.setLayout(new GridLayout(7, 2, 0, 3));
+            myPanel.add(new JLabel("课程时间"));
+            myPanel.add(timeField);
+            myPanel.add(new JLabel("课程名"));
+            myPanel.add(nameField);
+            myPanel.add(new JLabel("课序号"));
+            myPanel.add(serialField);
+            myPanel.add(new JLabel("课序号"));
+            myPanel.add(roomField);
+            myPanel.add(new JLabel("上课教室"));
+            myPanel.add(teacherField);
+            myPanel.add(new JLabel("授课老师"));
+            myPanel.add(weekField);
+            myPanel.add(new JLabel("上课周"));
+            myPanel.add(typeField);
+
+            int option = JOptionPane.showConfirmDialog(this, myPanel,
+                    "请输入课程信息", JOptionPane.OK_CANCEL_OPTION);
+            if (option == JOptionPane.OK_OPTION) {
+                String otherInfo = "<<" + nameField.getText() + ">>;" + serialField.getText() + " " + roomField.getText() + " " + teacherField.getText() + " " + weekField.getText() + " " + typeField.getText();
+                Lesson lesson = new Lesson(timeField.getText(), otherInfo);
+                student.addLesson(lesson);
+                lessonTable table = new lessonTable(student, currentWeek);
+                tableShow = new JScrollPane(table);
+                tableShow.setBounds(140, 5, 1280, 850);
+                this.add(tableShow);
+            }
+        }
+        //TODO
+        if (op.getSource() == funcDeleteLesson) {
+            this.currentWeek = 1;
+            showCurrentWeek.setText("第" + Integer.toString(currentWeek) + "周");
+            String inputLessonName = JOptionPane.showInputDialog(this, "请输入要删除的课程名", "");
+            student.removeLessonByName(inputLessonName);
+            lessonTable table = new lessonTable(student, currentWeek);
+            tableShow = new JScrollPane(table);
+            tableShow.setBounds(140, 5, 1280, 850);
+            this.add(tableShow);
         }
     }
 }
