@@ -63,6 +63,7 @@ public class MainFrame extends JFrame implements ActionListener {
         this.getContentPane().setBackground(new Color(255, 255, 255));
         loginFrame = new LoginFrame();
         loginFrame.getUserLogin().addActionListener(this);
+        student = new Student();
 
         // 添加右侧信息功能区
         infoField = new JPanel();
@@ -86,7 +87,7 @@ public class MainFrame extends JFrame implements ActionListener {
         Font userinfoFont = new Font("黑体", Font.PLAIN, 14);
         userInfo = new JLabel();
         userInfo.setFont(userinfoFont);
-        userInfo.setText("<html>班级:计科00班<br>学号:S000001</html>");
+        userInfo.setText("<html>班级:"+student.getStudentClass()+"<br>学号:"+student.getStudentId()+"</html>");
         userInfo.setVerticalAlignment(JLabel.CENTER);
         userInfo.setBounds(15, 105, 100, 40);
         infoField.add(userInfo);
@@ -107,12 +108,14 @@ public class MainFrame extends JFrame implements ActionListener {
         funcField.add(funcAddLesson);
 
         // 修改课程按钮
-        funcModifyLesson = new JButton("修改课程");
-        funcModifyLesson.setFont(buttonFont);
-        funcModifyLesson.setBackground(Color.ORANGE);
-        funcModifyLesson.setUI(new BasicButtonUI());
-        funcModifyLesson.addActionListener(this);
-        funcField.add(funcModifyLesson);
+        /*
+         *funcModifyLesson = new JButton("修改课程");
+         *funcModifyLesson.setFont(buttonFont);
+         *funcModifyLesson.setBackground(Color.ORANGE);
+         *funcModifyLesson.setUI(new BasicButtonUI());
+         *funcModifyLesson.addActionListener(this);
+         *funcField.add(funcModifyLesson);
+         */
 
         // 删除课程按钮
         funcDeleteLesson = new JButton("删除课程");
@@ -146,7 +149,6 @@ public class MainFrame extends JFrame implements ActionListener {
         funcField.add(funcExit);
 
         // 添加课表
-        student=new Student();
         importHtml = new JFileChooser();
         lessonTable table = new lessonTable();
         tableShow = new JScrollPane(table);
@@ -273,14 +275,16 @@ public class MainFrame extends JFrame implements ActionListener {
             }
         }
 
-        if(op.getSource()==funcModifyLesson){
-            String inputLessonName = JOptionPane.showInputDialog(this, "请输入要删除的课程名", "");
-            if(!inputLessonName.equals("")){
-                this.currentWeek = 1;
-                showCurrentWeek.setText("第" + Integer.toString(currentWeek) + "周");
-
-            }
-        }
+        /*
+         *if(op.getSource()==funcModifyLesson){
+         *    String inputLessonName = JOptionPane.showInputDialog(this, "请输入要删除的课程名", "");
+         *    if(!inputLessonName.equals("")){
+         *        this.currentWeek = 1;
+         *        showCurrentWeek.setText("第" + Integer.toString(currentWeek) + "周");
+         *
+         *    }
+         *}
+         */
 
         if (op.getSource() == funcDeleteLesson) {
             this.currentWeek = 1;

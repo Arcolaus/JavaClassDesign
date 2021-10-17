@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Student {
-    String studentId;
-    String studentClass;
-    ArrayList<Lesson> studentLessons;
+    private String studentId;
+    private String studentClass;
+    private ArrayList<Lesson> studentLessons;
 
     public Student() {
         studentLessons = new ArrayList<>();
@@ -39,5 +39,13 @@ public class Student {
 
     public ArrayList<Lesson> getStudentLessons() {
         return studentLessons;
+    }
+
+    public String getStudentClass() {
+        return this.studentClass;
+    }
+
+    public String getStudentId() {
+        return this.studentId;
     }
 }

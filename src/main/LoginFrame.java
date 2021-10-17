@@ -49,12 +49,12 @@ public class LoginFrame extends JFrame implements ActionListener {
         this.add(title);
 
         //  添加用户名显示和输入框
-        Font infoFont = new Font("Microsoft Yahei UI", Font.PLAIN, 20);
+        Font infoFont = new Font("Microsoft Yahei UI", Font.BOLD, 20);
         JLabel usernameInfo = new JLabel("用户名");
         userNameFild = new JTextField("1");
         usernameInfo.setFont(infoFont);
         usernameInfo.setBounds(350, 70, 80, 80);
-        userNameFild.setFont(infoFont);
+        userNameFild.setFont(new Font("Microsoft Yahei UI", Font.PLAIN, 20));
         userNameFild.setBounds(430, 95, 180, 30);
         userNameFild.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -80,13 +80,13 @@ public class LoginFrame extends JFrame implements ActionListener {
 
 
         //  添加密码输入提示和输入框
-        JLabel passwordInfo = new JLabel("密码");
+        JLabel passwordInfo = new JLabel("密   码");
         passwordField = new JPasswordField("1");
         passwordInfo.setFont(infoFont);
         passwordInfo.setBounds(350, 120, 80, 80);
         passwordField.setBounds(430, 145, 180, 30);
         passwordField.setEchoChar('*');
-        passwordField.setFont(infoFont);
+        passwordField.setFont(new Font("Microsoft Yahei UI", Font.PLAIN, 20));
         passwordField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -110,20 +110,20 @@ public class LoginFrame extends JFrame implements ActionListener {
         this.add(passwordField);
 
         // 添加用户类型选项
-        Font optionFont = new Font("Microsoft Yahei UI", Font.PLAIN, 16);
-        opGrop = new ButtonGroup();
-        adminOP = new JRadioButton("管理员");
-        adminOP.setFont(optionFont);
-        adminOP.setBounds(430, 200, 100, 30);
-        adminOP.setOpaque(false);
-        opGrop.add(adminOP);
-        this.add(adminOP);
-        userop = new JRadioButton("学生");
-        userop.setFont(optionFont);
-        userop.setBounds(550, 200, 100, 30);
-        userop.setOpaque(false);
-        opGrop.add(userop);
-        this.add(userop);
+//        Font optionFont = new Font("Microsoft Yahei UI", Font.PLAIN, 16);
+//        opGrop = new ButtonGroup();
+//        adminOP = new JRadioButton("管理员");
+//        adminOP.setFont(optionFont);
+//        adminOP.setBounds(430, 200, 100, 30);
+//        adminOP.setOpaque(false);
+//        opGrop.add(adminOP);
+//        this.add(adminOP);
+//        userop = new JRadioButton("学生");
+//        userop.setFont(optionFont);
+//        userop.setBounds(550, 200, 100, 30);
+//        userop.setOpaque(false);
+//        opGrop.add(userop);
+//        this.add(userop);
 
         // 添加功能按钮
         Font funcFont = new Font("Microsoft Yahei UI", Font.BOLD, 12);
