@@ -7,10 +7,13 @@ import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class LoginFrame extends JFrame implements ActionListener {
-    private String username = "1";
-    private String password = "1";
+    private String username = "";
+    private String password = "";
 
     private boolean emptyInfo;
     private JPanel userInfo;
@@ -28,7 +31,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 
     private boolean loginPermission = false;
 
-    LoginFrame() {
+    LoginFrame(Statement stat) {
         super();
         this.setLayout(null);
         this.getContentPane().setBackground(new Color(189, 232, 222));
@@ -51,20 +54,41 @@ public class LoginFrame extends JFrame implements ActionListener {
         //  添加用户名显示和输入框
         Font infoFont = new Font("Microsoft Yahei UI", Font.BOLD, 20);
         JLabel usernameInfo = new JLabel("用户名");
-        userNameFild = new JTextField("1");
+        userNameFild = new JTextField("");
         usernameInfo.setFont(infoFont);
         usernameInfo.setBounds(350, 70, 80, 80);
         userNameFild.setFont(new Font("Microsoft Yahei UI", Font.PLAIN, 20));
         userNameFild.setBounds(430, 95, 180, 30);
         userNameFild.getDocument().addDocumentListener(new DocumentListener() {
             @Override
-            public void insertUpdate(DocumentEvent e) {
+            public void insertUpdate(DocumentEvent opDoc) {
+
                 String inputName = userNameFild.getText();
                 String inputpwd = String.valueOf(passwordField.getPassword());
-                if (password.equals(inputpwd) && username.equals(inputName))
+                try {
+                    String queryUser = "SELECT * FROM T_LOGININFO WHERE STUDENT = '%s';";
+                    queryUser = String.format(queryUser, inputName);
+//                System.out.println(queryUser);
+                    ResultSet rs = stat.executeQuery(queryUser);
+                    while (rs.next()) {
+                        username = rs.getString(1);
+                        password = rs.getString(2);
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                if (password.equals(inputpwd) && username.equals(inputName)) {
                     loginPermission = true;
-                if (inputName.equals("") || inputpwd.equals(""))
+                    System.out.println("pass");
+                } else {
+                    loginPermission = false;
+                }
+                if (inputName.equals("") || inputpwd.equals("")) {
                     emptyInfo = true;
+                }
+                else {
+                    emptyInfo = false;
+                }
             }
 
             @Override
@@ -75,13 +99,14 @@ public class LoginFrame extends JFrame implements ActionListener {
             public void changedUpdate(DocumentEvent e) {
             }
         });
+
         this.add(userNameFild);
         this.add(usernameInfo);
 
 
         //  添加密码输入提示和输入框
         JLabel passwordInfo = new JLabel("密   码");
-        passwordField = new JPasswordField("1");
+        passwordField = new JPasswordField("");
         passwordInfo.setFont(infoFont);
         passwordInfo.setBounds(350, 120, 80, 80);
         passwordField.setBounds(430, 145, 180, 30);
@@ -89,13 +114,32 @@ public class LoginFrame extends JFrame implements ActionListener {
         passwordField.setFont(new Font("Microsoft Yahei UI", Font.PLAIN, 20));
         passwordField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
-            public void insertUpdate(DocumentEvent e) {
+            public void insertUpdate(DocumentEvent opDoc) {
+
                 String inputName = userNameFild.getText();
                 String inputpwd = String.valueOf(passwordField.getPassword());
-                if (password.equals(inputpwd) && username.equals(inputName))
+                try {
+                    String queryUser = "SELECT * FROM T_LOGININFO WHERE STUDENT = '%s';";
+                    queryUser = String.format(queryUser, inputName);
+                    ResultSet rs = stat.executeQuery(queryUser);
+                    while (rs.next()) {
+                        username = rs.getString(1);
+                        password = rs.getString(2);
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                if (password.equals(inputpwd) && username.equals(inputName)) {
                     loginPermission = true;
-                if (inputName.equals("") || inputpwd.equals(""))
+                    System.out.println("pass");
+                } else {
+                    loginPermission = false;
+                }
+                if (inputName.equals("") || inputpwd.equals("")) {
                     emptyInfo = true;
+                } else {
+                    emptyInfo = false;
+                }
             }
 
             @Override
@@ -152,7 +196,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         String inputName = userNameFild.getText();
         String inputpwd = String.valueOf(passwordField.getPassword());
         if (e.getSource() == userLogin) {
-            if (inputName.equals("") || inputpwd.equals(""))
+            if (emptyInfo)
                 JOptionPane.showMessageDialog(this, "用户名和密码不可为空!");
         } else if (e.getSource() == exit) {
             this.dispose();

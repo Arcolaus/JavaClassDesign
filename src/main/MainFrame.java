@@ -15,8 +15,8 @@ import java.io.File;
 import java.sql.*;
 
 public class MainFrame extends JFrame implements ActionListener {
-    final static int STUDENT = 0;
-    final static int ADMIN = 1;
+    public final static int STUDENT = 0;
+    public final static int ADMIN = 1;
 
     //注册驱动，输入链接地址，用户名，密码
     private final String driver = "com.mysql.cj.jdbc.Driver";
@@ -79,7 +79,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
         this.setLayout(null);
         this.getContentPane().setBackground(new Color(255, 255, 255));
-        loginFrame = new LoginFrame();
+        loginFrame = new LoginFrame(stat);
         loginFrame.getUserLogin().addActionListener(this);
 
         // 添加右侧信息功能区
@@ -153,6 +153,7 @@ public class MainFrame extends JFrame implements ActionListener {
         funcUploadDB.setFont(buttonFont);
         funcUploadDB.setBackground(Color.CYAN);
         funcUploadDB.setUI(new BasicButtonUI());
+        funcUploadDB.addActionListener(this);
         funcField.add(funcUploadDB);
 
         // 退出按钮
@@ -164,7 +165,7 @@ public class MainFrame extends JFrame implements ActionListener {
         funcField.add(funcExit);
 
         // 添加课表
-        student = new Student();
+        student = new Student("202020", "cs01");
         importHtml = new JFileChooser();
         lessonTable table = new lessonTable();
         tableShow = new JScrollPane(table);
@@ -202,12 +203,14 @@ public class MainFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent op) {
         // 登录许可
-//        if (loginFrame.getPermission()) {
-        this.setVisible(true);
-        loginFrame.dispose();
-//        } else if (loginFrame.emptyUserInfo() && !loginFrame.getPermission()) {
-//            JOptionPane.showMessageDialog(this, "用户信息错误，请检查用户名和密码，或者用户类型");
-//        }
+//        System.out.println(loginFrame.emptyUserInfo() +" in "+!loginFrame.getPermission());
+        if (loginFrame.getPermission()) {
+            this.setVisible(true);
+            loginFrame.dispose();
+        } else {
+            if (!loginFrame.emptyUserInfo())
+                JOptionPane.showMessageDialog(this, "用户信息错误，请检查用户名和密码，或者用户类型");
+        }
 
         if (op.getSource() == funcExit)
             this.dispose();
@@ -247,6 +250,26 @@ public class MainFrame extends JFrame implements ActionListener {
                 tableShow = new JScrollPane(table);
                 tableShow.setBounds(140, 5, 1280, 850);
                 this.add(tableShow);
+                boolean userExsit = false;
+                String sql = "SELECT ID FROM T_STUDENT WHERE ID = '%s';";
+                sql = String.format(sql, student.getStudentId());
+                System.out.println(sql);
+                try {
+                    ResultSet rs = stat.executeQuery(sql);
+                    while (rs.next())
+                        userExsit = true;
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                if (!userExsit) {
+                    String addName = "INSERT INTO T_STUDENT (ID,CLASS) VALUES ('%s','%s');";
+                    addName = String.format(addName, student.getStudentId(), student.getStudentClass());
+                    try {
+                        stat.execute(addName);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
         if (op.getSource() == funcAddLesson) {
@@ -296,7 +319,6 @@ public class MainFrame extends JFrame implements ActionListener {
             if (!inputLessonName.equals("")) {
                 this.currentWeek = 1;
                 showCurrentWeek.setText("第" + Integer.toString(currentWeek) + "周");
-
             }
         }
 
@@ -310,12 +332,20 @@ public class MainFrame extends JFrame implements ActionListener {
             tableShow.setBounds(140, 5, 1280, 850);
             this.add(tableShow);
         }
-        if (op.getSource() == funcUploadDB) {
-            for (Lesson it : student.getStudentLessons()) {
-                String sql = "IN";
 
-            }
-        }
+//        if (op.getSource() == funcUploadDB) {
+//            for (Lesson it : student.getStudentLessons()) {
+//                String sql = "INSER INTO T_LESSONS(STUDENT, LESSONNAME, DAYTIME, COMBINETIME, SERIAL, ROOM, TEACHR)\n" +
+//                        " * VALUES ('%s','%s',%d,%d,%d,'%s','%s')";
+//                sql = String.format(sql, student.getStudentId(), it.getLessonName(), it.getDayTime(), it.getCombineTime(),
+//                        it.getLessonSerial(), it.getRoomPlace(), it.getTeacher());
+//                try {
+//                    stat.execute(sql);
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
     }
 }
 /*
