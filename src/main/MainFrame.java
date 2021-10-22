@@ -12,10 +12,21 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.*;
 
 public class MainFrame extends JFrame implements ActionListener {
     final static int STUDENT = 0;
     final static int ADMIN = 1;
+
+    //注册驱动，输入链接地址，用户名，密码
+    private final String driver = "com.mysql.cj.jdbc.Driver";
+    //访问mysql数据库
+    //格式 jdbc:数据库://本地端口3306/数据库名?跨时区参数
+    private final String url = "jdbc:mysql://db.vesuo.cn:3306/hy_vesuo_cn?serverTimezone=Asia/Shanghai";
+    private final String username = "hy";
+    private final String password = "xhntA5PwRMhybShG";
+    private final Connection connect = DriverManager.getConnection(url, username, password);
+    private final Statement stat = connect.createStatement();
 
     // 选择HTML文件导入
     private JFileChooser importHtml;
@@ -54,11 +65,18 @@ public class MainFrame extends JFrame implements ActionListener {
     private JScrollPane tableShow;
 
     public static void main(String[] args) {
-        MainFrame mainFrame = new MainFrame();
+        try {
+            MainFrame mainFrame = new MainFrame();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    MainFrame() {
+    MainFrame() throws ClassNotFoundException, SQLException {
         super("Lesson Vision");
+
         this.setLayout(null);
         this.getContentPane().setBackground(new Color(255, 255, 255));
         loginFrame = new LoginFrame();
@@ -146,7 +164,7 @@ public class MainFrame extends JFrame implements ActionListener {
         funcField.add(funcExit);
 
         // 添加课表
-        student=new Student();
+        student = new Student();
         importHtml = new JFileChooser();
         lessonTable table = new lessonTable();
         tableShow = new JScrollPane(table);
@@ -273,9 +291,9 @@ public class MainFrame extends JFrame implements ActionListener {
             }
         }
 
-        if(op.getSource()==funcModifyLesson){
+        if (op.getSource() == funcModifyLesson) {
             String inputLessonName = JOptionPane.showInputDialog(this, "请输入要删除的课程名", "");
-            if(!inputLessonName.equals("")){
+            if (!inputLessonName.equals("")) {
                 this.currentWeek = 1;
                 showCurrentWeek.setText("第" + Integer.toString(currentWeek) + "周");
 
@@ -292,5 +310,16 @@ public class MainFrame extends JFrame implements ActionListener {
             tableShow.setBounds(140, 5, 1280, 850);
             this.add(tableShow);
         }
+        if (op.getSource() == funcUploadDB) {
+            for (Lesson it : student.getStudentLessons()) {
+                String sql = "IN";
+
+            }
+        }
     }
 }
+/*
+ * INSERT INTO T_LESSONS(STUDENT, LESSONNAME, DAYTIME, COMBINETIME, SERIAL, ROOM, TEACHR)
+ * VALUES
+ * ('2019206639','计算机网络',3,7,1,'bozhi','fra');
+ * */
