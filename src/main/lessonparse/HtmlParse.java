@@ -43,9 +43,15 @@ public class HtmlParse {
         }
 
         Elements id = originDoc.select("td[nowrap=nowrap]");
-        for (Element it : id)
-            this.studentId = it.text();
-
+        for (Element it : id) {
+            String p = ": [0-9]*";
+            Pattern r = Pattern.compile(p);
+            Matcher m = r.matcher(it.text());
+            while (m.find()) {
+                if (!m.group().equals(" "))
+                    this.studentId = m.group().split(" ")[1];
+            }
+        }
         Elements StudentClass = originDoc.select("td[align=right]");
         for (Element it : StudentClass)
             this.studentClass = it.text();
