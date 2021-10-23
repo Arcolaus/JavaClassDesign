@@ -85,8 +85,7 @@ public class LoginFrame extends JFrame implements ActionListener {
                 }
                 if (inputName.equals("") || inputpwd.equals("")) {
                     emptyInfo = true;
-                }
-                else {
+                } else {
                     emptyInfo = false;
                 }
             }
@@ -213,5 +212,9 @@ public class LoginFrame extends JFrame implements ActionListener {
 
     public boolean emptyUserInfo() {
         return emptyInfo;
+    }
+
+    public String getUsername() {
+        return this.username;
     }
 }

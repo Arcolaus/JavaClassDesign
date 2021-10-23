@@ -58,7 +58,6 @@ public class MainFrame extends JFrame implements ActionListener {
     // 学生信息
     private Student student;
 
-
     // 课表内容区
     private int currentWeek = 1;
     private JLabel showCurrentWeek;
@@ -76,10 +75,10 @@ public class MainFrame extends JFrame implements ActionListener {
 
     MainFrame() throws ClassNotFoundException, SQLException {
         super("Lesson Vision");
-
         this.setLayout(null);
         this.getContentPane().setBackground(new Color(255, 255, 255));
         loginFrame = new LoginFrame(stat);
+        student = new Student(loginFrame.getUsername(), null);
         loginFrame.getUserLogin().addActionListener(this);
 
         // 添加右侧信息功能区
@@ -104,7 +103,7 @@ public class MainFrame extends JFrame implements ActionListener {
         Font userinfoFont = new Font("黑体", Font.PLAIN, 14);
         userInfo = new JLabel();
         userInfo.setFont(userinfoFont);
-        userInfo.setText("<html>班级:计科00班<br>学号:S000001</html>");
+        userInfo.setText("<html>" + student.getStudentClass() + "<br>学号:" + student.getStudentId() + "</html>");
         userInfo.setVerticalAlignment(JLabel.CENTER);
         userInfo.setBounds(15, 105, 100, 40);
         infoField.add(userInfo);
@@ -165,7 +164,6 @@ public class MainFrame extends JFrame implements ActionListener {
         funcField.add(funcExit);
 
         // 添加课表
-        student = new Student("202020", "cs01");
         importHtml = new JFileChooser();
         lessonTable table = new lessonTable();
         tableShow = new JScrollPane(table);
@@ -200,6 +198,14 @@ public class MainFrame extends JFrame implements ActionListener {
         this.setResizable(false);
     }
 
+    private void updateInfo() {
+        showCurrentWeek.setText("第" + Integer.toString(currentWeek) + "周");
+        lessonTable table = new lessonTable(student, currentWeek);
+        tableShow = new JScrollPane(table);
+        tableShow.setBounds(140, 5, 1280, 850);
+        this.add(tableShow);
+    }
+
     @Override
     public void actionPerformed(ActionEvent op) {
         // 登录许可
@@ -218,38 +224,26 @@ public class MainFrame extends JFrame implements ActionListener {
         if (op.getSource() == preWeek) {
             if (currentWeek > 1)
                 currentWeek--;
-            showCurrentWeek.setText("第" + Integer.toString(currentWeek) + "周");
-            lessonTable table = new lessonTable(student, currentWeek);
-            tableShow = new JScrollPane(table);
-            tableShow.setBounds(140, 5, 1280, 850);
-            this.add(tableShow);
+            updateInfo();
         }
         if (op.getSource() == nextWeek) {
             if (currentWeek < 20)
                 currentWeek++;
-            showCurrentWeek.setText("第" + Integer.toString(currentWeek) + "周");
-            lessonTable table = new lessonTable(student, currentWeek);
-            tableShow = new JScrollPane(table);
-            tableShow.setBounds(140, 5, 1280, 850);
-            this.add(tableShow);
+            updateInfo();
         }
 
         if (op.getSource() == funcImportHtml) {
             htmlFilter = new FileNameExtensionFilter("HTML文件", "html");
             importHtml.setFileFilter(htmlFilter);
-            importHtml.setCurrentDirectory(new File("./"));
+            importHtml.setCurrentDirectory(new File("./src/img/"));
             int val = importHtml.showOpenDialog(this);
 
             if (val == JFileChooser.APPROVE_OPTION) {
                 this.currentWeek = 1;
-                showCurrentWeek.setText("第" + Integer.toString(currentWeek) + "周");
                 HtmlParse doc = new HtmlParse(importHtml.getSelectedFile().getAbsolutePath());
                 student = new Student(doc.getStudentId(), doc.getStudentClass());
                 student.addLesson(doc.getLessons());
-                lessonTable table = new lessonTable(student, currentWeek);
-                tableShow = new JScrollPane(table);
-                tableShow.setBounds(140, 5, 1280, 850);
-                this.add(tableShow);
+                updateInfo();
                 boolean userExsit = false;
                 String sql = "SELECT ID FROM T_STUDENT WHERE ID = '%s';";
                 sql = String.format(sql, student.getStudentId());
@@ -270,6 +264,7 @@ public class MainFrame extends JFrame implements ActionListener {
                         e.printStackTrace();
                     }
                 }
+                userInfo.setText("<html>" + student.getStudentClass() + "<br>学号:" + student.getStudentId() + "</html>");
             }
         }
         if (op.getSource() == funcAddLesson) {
