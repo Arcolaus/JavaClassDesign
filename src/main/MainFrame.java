@@ -52,6 +52,7 @@ public class MainFrame extends JFrame implements ActionListener {
     private JButton funcDeleteLesson;
     private JButton funcImportHtml;
     private JButton funcUploadDB;
+    private JButton funcDonwload;
     private JButton preWeek;
     private JButton nextWeek;
 
@@ -80,6 +81,7 @@ public class MainFrame extends JFrame implements ActionListener {
         loginFrame = new LoginFrame(stat);
         student = new Student(loginFrame.getUsername(), null);
         loginFrame.getUserLogin().addActionListener(this);
+        loginFrame.getPasswordField().addActionListener(this);
 
         // 添加右侧信息功能区
         infoField = new JPanel();
@@ -103,17 +105,17 @@ public class MainFrame extends JFrame implements ActionListener {
         Font userinfoFont = new Font("黑体", Font.PLAIN, 14);
         userInfo = new JLabel();
         userInfo.setFont(userinfoFont);
-        userInfo.setText("<html>" + student.getStudentClass() + "<br>学号:" + student.getStudentId() + "</html>");
+        userInfo.setText("<html>"+"班级:"+ student.getStudentClass() + "<br>学号:" + student.getStudentId() + "</html>");
         userInfo.setVerticalAlignment(JLabel.CENTER);
-        userInfo.setBounds(15, 105, 100, 40);
+        userInfo.setBounds(15, 105, 120, 40);
         infoField.add(userInfo);
 
         // 添加右侧按钮板
         Font buttonFont = new Font("黑体", Font.PLAIN, 16);
         funcField = new JPanel();
         funcField.setOpaque(false);
-        funcField.setLayout(new GridLayout(6, 1, 0, 5));
-        funcField.setBounds(15, 200, 100, 210);
+        funcField.setLayout(new GridLayout(7, 1, 0, 5));
+        funcField.setBounds(15, 190, 100, 230);
 
         // 添加课程按钮
         funcAddLesson = new JButton("添加课程");
@@ -154,6 +156,14 @@ public class MainFrame extends JFrame implements ActionListener {
         funcUploadDB.setUI(new BasicButtonUI());
         funcUploadDB.addActionListener(this);
         funcField.add(funcUploadDB);
+
+        // 下载
+        funcDonwload = new JButton("从云下载");
+        funcDonwload.setFont(buttonFont);
+        funcDonwload.setBackground(Color.CYAN);
+        funcDonwload.setUI(new BasicButtonUI());
+        funcDonwload.addActionListener(this);
+        funcField.add(funcDonwload);
 
         // 退出按钮
         funcExit = new JButton("退出");
@@ -247,7 +257,7 @@ public class MainFrame extends JFrame implements ActionListener {
                 boolean userExsit = false;
                 String sql = "SELECT ID FROM T_STUDENT WHERE ID = '%s';";
                 sql = String.format(sql, student.getStudentId());
-                System.out.println(sql);
+//                System.out.println(sql);
                 try {
                     ResultSet rs = stat.executeQuery(sql);
                     while (rs.next())
@@ -328,19 +338,22 @@ public class MainFrame extends JFrame implements ActionListener {
             this.add(tableShow);
         }
 
-//        if (op.getSource() == funcUploadDB) {
-//            for (Lesson it : student.getStudentLessons()) {
-//                String sql = "INSER INTO T_LESSONS(STUDENT, LESSONNAME, DAYTIME, COMBINETIME, SERIAL, ROOM, TEACHR)\n" +
-//                        " * VALUES ('%s','%s',%d,%d,%d,'%s','%s')";
-//                sql = String.format(sql, student.getStudentId(), it.getLessonName(), it.getDayTime(), it.getCombineTime(),
-//                        it.getLessonSerial(), it.getRoomPlace(), it.getTeacher());
-//                try {
-//                    stat.execute(sql);
-//                } catch (SQLException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
+        if (op.getSource() == funcUploadDB) {
+            for (Lesson it : student.getStudentLessons()) {
+                String sql = "INSERT INTO T_LESSONS(STUDENT, LESSONNAME, DAYTIME, COMBINETIME, SERIAL, ROOM, TEACHR)" +
+                        " VALUES ('%s','%s',%d,%d,%d,'%s','%s');";
+                sql = String.format(sql, student.getStudentId(), it.getLessonName(), it.getDayTime(), it.getCombineTime(),
+                        it.getLessonSerial(), it.getRoomPlace(), it.getTeacher());
+                try {
+                    stat.execute(sql);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if(op.getSource()==funcDonwload){
+            System.out.println("download");
+        }
     }
 }
 /*

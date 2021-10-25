@@ -7,6 +7,8 @@ import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,7 +30,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 
     private JButton userLogin;
     private JButton exit;
-
+    private KeyListener enterListner;
     private boolean loginPermission = false;
 
     LoginFrame(Statement stat) {
@@ -51,6 +53,23 @@ public class LoginFrame extends JFrame implements ActionListener {
         title.setToolTipText("更好的课表可视化");
         this.add(title);
 
+        enterListner=new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        };
+
         //  添加用户名显示和输入框
         Font infoFont = new Font("Microsoft Yahei UI", Font.BOLD, 20);
         JLabel usernameInfo = new JLabel("用户名");
@@ -62,7 +81,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         userNameFild.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent opDoc) {
-
+                userNameFild.requestFocusInWindow();
                 String inputName = userNameFild.getText();
                 String inputpwd = String.valueOf(passwordField.getPassword());
                 try {
@@ -98,7 +117,7 @@ public class LoginFrame extends JFrame implements ActionListener {
             public void changedUpdate(DocumentEvent e) {
             }
         });
-
+        userNameFild.addKeyListener(enterListner);
         this.add(userNameFild);
         this.add(usernameInfo);
 
@@ -114,7 +133,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         passwordField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent opDoc) {
-
+                passwordField.requestFocusInWindow();
                 String inputName = userNameFild.getText();
                 String inputpwd = String.valueOf(passwordField.getPassword());
                 try {
@@ -149,6 +168,7 @@ public class LoginFrame extends JFrame implements ActionListener {
             public void changedUpdate(DocumentEvent e) {
             }
         });
+        passwordField.addKeyListener(enterListner);
         this.add(passwordInfo);
         this.add(passwordField);
 
@@ -183,6 +203,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         this.add(userLogin);
         this.add(exit);
 
+
         this.setTitle("登录");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(700, 400);
@@ -202,6 +223,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         }
     }
 
+
     public boolean getPermission() {
         return loginPermission;
     }
@@ -216,5 +238,13 @@ public class LoginFrame extends JFrame implements ActionListener {
 
     public String getUsername() {
         return this.username;
+    }
+
+    public JPasswordField getPasswordField() {
+        return this.passwordField;
+    }
+
+    public JTextField getUserNameFild() {
+        return this.userNameFild;
     }
 }
