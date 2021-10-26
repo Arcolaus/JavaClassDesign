@@ -36,6 +36,13 @@ public class Student {
                 lessonIterator.remove();
         }
     }
+    public void setStudentId(String id){
+        this.studentId=id;
+    }
+
+    public void setStudentClass(String studentClass){
+        this.studentClass=studentClass;
+    }
 
     public ArrayList<Lesson> getStudentLessons() {
         return studentLessons;
@@ -45,6 +52,9 @@ public class Student {
         return this.studentClass;
     }
 
+    public void clearLessons(){
+        this.studentLessons.clear();
+    }
     public String getStudentId() {
         return this.studentId;
     }

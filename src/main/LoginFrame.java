@@ -70,7 +70,6 @@ public class LoginFrame extends JFrame implements ActionListener, KeyListener {
                 try {
                     String queryUser = "SELECT * FROM T_LOGININFO WHERE STUDENT = '%s';";
                     queryUser = String.format(queryUser, inputName);
-//                System.out.println(queryUser);
                     ResultSet rs = stat.executeQuery(queryUser);
                     while (rs.next()) {
                         username = rs.getString(1);
@@ -81,7 +80,6 @@ public class LoginFrame extends JFrame implements ActionListener, KeyListener {
                 }
                 if (password.equals(inputpwd) && username.equals(inputName)) {
                     loginPermission = true;
-                    System.out.println("pass");
                 } else {
                     loginPermission = false;
                 }
@@ -132,7 +130,6 @@ public class LoginFrame extends JFrame implements ActionListener, KeyListener {
                 }
                 if (password.equals(inputpwd) && username.equals(inputName)) {
                     loginPermission = true;
-                    System.out.println("pass");
                 } else {
                     loginPermission = false;
                 }
@@ -153,22 +150,6 @@ public class LoginFrame extends JFrame implements ActionListener, KeyListener {
         });
         this.add(passwordInfo);
         this.add(passwordField);
-
-        // 添加用户类型选项
-//        Font optionFont = new Font("Microsoft Yahei UI", Font.PLAIN, 16);
-//        opGrop = new ButtonGroup();
-//        adminOP = new JRadioButton("管理员");
-//        adminOP.setFont(optionFont);
-//        adminOP.setBounds(430, 200, 100, 30);
-//        adminOP.setOpaque(false);
-//        opGrop.add(adminOP);
-//        this.add(adminOP);
-//        userop = new JRadioButton("学生");
-//        userop.setFont(optionFont);
-//        userop.setBounds(550, 200, 100, 30);
-//        userop.setOpaque(false);
-//        opGrop.add(userop);
-//        this.add(userop);
 
         // 添加功能按钮
         Font funcFont = new Font("Microsoft Yahei UI", Font.BOLD, 12);
@@ -243,9 +224,8 @@ public class LoginFrame extends JFrame implements ActionListener, KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (this.emptyInfo) {
+            if (this.emptyInfo)
                 JOptionPane.showMessageDialog(this, "用户名和密码不可为空!");
-            }
             this.requestFocusInWindow();
         }
     }

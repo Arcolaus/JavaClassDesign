@@ -9,11 +9,12 @@ public class Lesson {
     private int lessonSerial;
     private String roomPlace = "";
     private String teacher;
+    private String rawInfo;
 
     private ArrayList<Integer> takeWeek;
 
     public Lesson(String time, String otherInfo) {
-        System.out.println("|"+time+"|"+otherInfo);
+        rawInfo = otherInfo;
         takeWeek = new ArrayList<Integer>();
         String[] timeinfo = time.split("-");
         String[] lessoninfo = otherInfo.split(";| ");
@@ -123,5 +124,9 @@ public class Lesson {
 
     public ArrayList<Integer> getTakeWeek() {
         return this.takeWeek;
+    }
+
+    public String getRawInfo() {
+        return this.rawInfo;
     }
 }

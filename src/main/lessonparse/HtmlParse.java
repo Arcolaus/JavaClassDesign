@@ -54,7 +54,6 @@ public class HtmlParse {
         }
         Elements StudentClass = originDoc.select("td[align=right]");
         for (Element it : StudentClass) {
-            System.out.println(it.text().substring(3,it.text().length()));
             this.studentClass = it.text();
         }
         LessonElements = originDoc.getElementsByClass("Center");

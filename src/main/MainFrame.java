@@ -80,6 +80,7 @@ public class MainFrame extends JFrame implements ActionListener {
         this.getContentPane().setBackground(new Color(255, 255, 255));
         loginFrame = new LoginFrame(stat);
         student = new Student(loginFrame.getUsername(), null);
+//        System.out.println("init");
         loginFrame.getUserLogin().addActionListener(this);
         loginFrame.getPasswordField().addActionListener(this);
 
@@ -105,7 +106,7 @@ public class MainFrame extends JFrame implements ActionListener {
         Font userinfoFont = new Font("黑体", Font.PLAIN, 14);
         userInfo = new JLabel();
         userInfo.setFont(userinfoFont);
-        userInfo.setText("<html>"+"班级:"+ student.getStudentClass() + "<br>学号:" + student.getStudentId() + "</html>");
+        userInfo.setText("<html>" + "班级:" + student.getStudentClass() + "<br>学号:" + student.getStudentId() + "</html>");
         userInfo.setVerticalAlignment(JLabel.CENTER);
         userInfo.setBounds(15, 105, 120, 40);
         infoField.add(userInfo);
@@ -219,10 +220,9 @@ public class MainFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent op) {
         // 登录许可
-//        System.out.println(loginFrame.emptyUserInfo() +" in "+!loginFrame.getPermission());
         if (loginFrame.getPermission()) {
             this.setVisible(true);
-            student=new Student(loginFrame.getUsername(),null);
+            student.setStudentId(loginFrame.getUsername());
             loginFrame.dispose();
         } else {
             if (!loginFrame.emptyUserInfo())
@@ -253,12 +253,12 @@ public class MainFrame extends JFrame implements ActionListener {
                 this.currentWeek = 1;
                 HtmlParse doc = new HtmlParse(importHtml.getSelectedFile().getAbsolutePath());
                 student = new Student(doc.getStudentId(), doc.getStudentClass());
+
                 student.addLesson(doc.getLessons());
                 updateInfo();
                 boolean userExsit = false;
                 String sql = "SELECT ID FROM T_STUDENT WHERE ID = '%s';";
                 sql = String.format(sql, student.getStudentId());
-//                System.out.println(sql);
                 try {
                     ResultSet rs = stat.executeQuery(sql);
                     while (rs.next())
@@ -276,6 +276,7 @@ public class MainFrame extends JFrame implements ActionListener {
                     }
                 }
                 userInfo.setText("<html>" + student.getStudentClass() + "<br>学号:" + student.getStudentId() + "</html>");
+
             }
         }
         if (op.getSource() == funcAddLesson) {
@@ -341,28 +342,32 @@ public class MainFrame extends JFrame implements ActionListener {
 
         if (op.getSource() == funcUploadDB) {
             for (Lesson it : student.getStudentLessons()) {
-                String sql = "INSERT INTO T_LESSONS(STUDENT, LESSONNAME, DAYTIME, COMBINETIME, SERIAL, ROOM, TEACHR)" +
-                        " VALUES ('%s','%s',%d,%d,%d,'%s','%s');";
-                sql = String.format(sql, student.getStudentId(), it.getLessonName(), it.getDayTime(), it.getCombineTime(),
-                        it.getLessonSerial(), it.getRoomPlace(), it.getTeacher());
+
+                String sql = "INSERT INTO T_LESSONS(STUDENT, TIME,INFO)" +
+                        " VALUES ('%s','%d-%d','%s');";
+                sql = String.format(sql, student.getStudentId(), it.getDayTime(), it.getCombineTime(), it.getRawInfo());
+//                System.out.println(sql);
                 try {
+//                    stat.execute("SELECT ")
                     stat.execute(sql);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
         }
-        if(op.getSource()==funcDonwload){
-            System.out.println("download");
-            String sql="SELECT * FROM T_LESSONS WHERE STUDENT='%s';";
-            sql=String.format(sql,student.getStudentId());
-//            System.out.println(sql);
+        if (op.getSource() == funcDonwload) {
+            String sql = "SELECT * FROM T_LESSONS WHERE STUDENT='%s';";
+            System.out.println(sql);
+            sql = String.format(sql, student.getStudentId());
             try {
-                ResultSet rs=stat.executeQuery(sql);
-                while(rs.next()){
-                    for(int i=1;i<=5;i++)
-                        System.out.print(rs.getString(i)+" ");
+                this.currentWeek=1;
+                ResultSet rs = stat.executeQuery(sql);
+                student.clearLessons();
+                while (rs.next()) {
+//                    System.out.print(rs.getString(2) + " " + rs.getString(3)+"\n");
+                    student.addLesson(new Lesson(rs.getString(2),rs.getString(3)));
                 }
+                updateInfo();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
