@@ -13,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class LoginFrame extends JFrame implements ActionListener {
+public class LoginFrame extends JFrame implements ActionListener, KeyListener {
     private String username = "";
     private String password = "";
 
@@ -30,7 +30,6 @@ public class LoginFrame extends JFrame implements ActionListener {
 
     private JButton userLogin;
     private JButton exit;
-    private KeyListener enterListner;
     private boolean loginPermission = false;
 
     LoginFrame(Statement stat) {
@@ -53,23 +52,6 @@ public class LoginFrame extends JFrame implements ActionListener {
         title.setToolTipText("更好的课表可视化");
         this.add(title);
 
-        enterListner=new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
-        };
-
         //  添加用户名显示和输入框
         Font infoFont = new Font("Microsoft Yahei UI", Font.BOLD, 20);
         JLabel usernameInfo = new JLabel("用户名");
@@ -78,6 +60,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         usernameInfo.setBounds(350, 70, 80, 80);
         userNameFild.setFont(new Font("Microsoft Yahei UI", Font.PLAIN, 20));
         userNameFild.setBounds(430, 95, 180, 30);
+        userNameFild.addKeyListener(this);
         userNameFild.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent opDoc) {
@@ -117,7 +100,6 @@ public class LoginFrame extends JFrame implements ActionListener {
             public void changedUpdate(DocumentEvent e) {
             }
         });
-        userNameFild.addKeyListener(enterListner);
         this.add(userNameFild);
         this.add(usernameInfo);
 
@@ -130,6 +112,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         passwordField.setBounds(430, 145, 180, 30);
         passwordField.setEchoChar('*');
         passwordField.setFont(new Font("Microsoft Yahei UI", Font.PLAIN, 20));
+        passwordField.addKeyListener(this);
         passwordField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent opDoc) {
@@ -168,7 +151,6 @@ public class LoginFrame extends JFrame implements ActionListener {
             public void changedUpdate(DocumentEvent e) {
             }
         });
-        passwordField.addKeyListener(enterListner);
         this.add(passwordInfo);
         this.add(passwordField);
 
@@ -246,5 +228,25 @@ public class LoginFrame extends JFrame implements ActionListener {
 
     public JTextField getUserNameFild() {
         return this.userNameFild;
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (this.emptyInfo) {
+                JOptionPane.showMessageDialog(this, "用户名和密码不可为空!");
+            }
+            this.requestFocusInWindow();
+        }
     }
 }

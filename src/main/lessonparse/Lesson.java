@@ -7,12 +7,13 @@ public class Lesson {
     private int dayTime;
     private int combineTime;
     private int lessonSerial;
-    private String roomPlace = "@";
+    private String roomPlace = "";
     private String teacher;
 
     private ArrayList<Integer> takeWeek;
 
     public Lesson(String time, String otherInfo) {
+        System.out.println("|"+time+"|"+otherInfo);
         takeWeek = new ArrayList<Integer>();
         String[] timeinfo = time.split("-");
         String[] lessoninfo = otherInfo.split(";| ");

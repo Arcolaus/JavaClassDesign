@@ -222,6 +222,7 @@ public class MainFrame extends JFrame implements ActionListener {
 //        System.out.println(loginFrame.emptyUserInfo() +" in "+!loginFrame.getPermission());
         if (loginFrame.getPermission()) {
             this.setVisible(true);
+            student=new Student(loginFrame.getUsername(),null);
             loginFrame.dispose();
         } else {
             if (!loginFrame.emptyUserInfo())
@@ -353,6 +354,18 @@ public class MainFrame extends JFrame implements ActionListener {
         }
         if(op.getSource()==funcDonwload){
             System.out.println("download");
+            String sql="SELECT * FROM T_LESSONS WHERE STUDENT='%s';";
+            sql=String.format(sql,student.getStudentId());
+//            System.out.println(sql);
+            try {
+                ResultSet rs=stat.executeQuery(sql);
+                while(rs.next()){
+                    for(int i=1;i<=5;i++)
+                        System.out.print(rs.getString(i)+" ");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
